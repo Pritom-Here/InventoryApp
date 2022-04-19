@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="d-flex justify-content-between">
+    <h1>Admin Index</h1>
+    <a class="btn btn-success" asp-action="Create" asp-controller="Admin">New Admin</a>
+</div>
+
+<div class="row mt-4">
+
+    <table class="table table-striped text-center">
+        <thead class="bg-secondary text-white">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Is Confirmed</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.EmailConfirmed</td>
+                    <td>
+                        <button class="btn btn-primary">Edit Role</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
