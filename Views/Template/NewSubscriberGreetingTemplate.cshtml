@@ -1,0 +1,108 @@
+﻿@using InventoryApp.Models.ViewModels
+@model UserCredentialsViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      @@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+      body {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        line-height: 1em;
+      }
+
+      .mt-1 {
+        display: block;
+        margin-top: 1em;
+      }
+      .mt-2 {
+        display: block;
+        margin-top: 2em;
+      }
+      .mt-3 {
+        display: block;
+        margin-top: 3em;
+      }
+      .mt-4 {
+        display: block;
+        margin-top: 4em;
+      }
+      .mt-5 {
+        display: block;
+        margin-top: 5em;
+      }
+      .mb-3 {
+        display: block;
+        margin-bottom: 3em;
+      }
+
+      .ff-poppins {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .fw-400 {
+        font-weight: 400;
+      }
+      .fw-500 {
+        font-weight: 500;
+      }
+      .fw-600 {
+        font-weight: 600;
+      }
+      .fw-700 {
+        font-weight: 700;
+      }
+      .fw-800 {
+        font-weight: 800;
+      }
+
+      .fs-20 {
+        font-size: 20px;
+      }
+
+      .text-dark-sienna {
+        color: #60271e;
+      }
+
+      .text-warning {
+        color: #e94435;
+      }
+
+      .btn {
+        text-decoration: none;
+        color: white;
+        background: #00afb9;
+        padding: 1em;
+        border-radius: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="text-dark-sienna fw-600 fs-20">
+      Hey, @Model.FirstName @Model.LastName!
+    </p>
+    <p class="mt-1">
+      Your account has been successfully created in our system.
+    </p>
+    <p>You have been given the role of @Model.Role.</p>
+    <p class="mt-2 fw-600">Here is your account credentials:</p>
+    <p><span class="fw-700">Email :</span> @Model.Email</p>
+    <p><span class="fw-700">Password :</span> @Model.Password</p>
+    <p class="mt-2">
+      <span class="fw-700 text-warning">Note : </span>
+      We request you to change your password as soon as you sign in.
+    </p>
+    <p class="mt-1 mb-3">
+      Please, click on the button below to confirm your account before you can sign in.
+    </p>
+    <a class="btn" href="@Model.ConfirmationLink" target="_blank">Confirm Your Account</a
+    >
+  </body>
+</html>

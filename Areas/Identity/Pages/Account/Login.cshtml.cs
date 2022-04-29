@@ -111,6 +111,13 @@ namespace InventoryApp.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
+                if(user != null && !user.EmailConfirmed)
+                {
+                    ModelState.AddModelError(string.Empty, "Email is not confirmed yet");
+                    return Page();
+                }
+
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -121,7 +128,6 @@ namespace InventoryApp.Areas.Identity.Pages.Account
                         new Claim("amr", "pwd")
                     };
 
-                    var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                     var roles = await _signInManager.UserManager.GetRolesAsync(user);
                     
 

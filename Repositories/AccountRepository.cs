@@ -25,6 +25,11 @@ namespace InventoryApp.Repositories
             return _applicationDbContext.Users.ToList();
         }
 
+        public async Task<ApplicationUser> FindByIdAsync(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
         public async Task<IEnumerable<ApplicationUser>> GetUsersByRoleAsync(string roleName)
         {
             return await _signInManager.UserManager.GetUsersInRoleAsync(roleName);
@@ -46,6 +51,17 @@ namespace InventoryApp.Repositories
         {
             var result = await _userManager.AddToRoleAsync(user, role);
             return result;
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return token;
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
         }
     }
 }

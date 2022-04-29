@@ -33,6 +33,10 @@
             <label asp-for="Password"></label>
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Create Account</button>
     </form>
 </div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

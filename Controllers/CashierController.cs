@@ -1,17 +1,24 @@
 ﻿using InventoryApp.Models;
 using InventoryApp.Models.ViewModels;
 using InventoryApp.Repositories;
+using InventoryApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers
 {
+    [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class CashierController : Controller
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IMailer _mailer;
+        private readonly ITemplateHelper _templateHelper;
 
-        public CashierController(IAccountRepository accountRepository)
+        public CashierController(IAccountRepository accountRepository, IMailer mailer, ITemplateHelper templateHelper)
         {
             _accountRepository = accountRepository;
+            _mailer = mailer;
+            _templateHelper = templateHelper;
         }
 
         public async Task<IActionResult> Index()
@@ -26,6 +33,7 @@ namespace InventoryApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -51,6 +59,26 @@ namespace InventoryApp.Controllers
                 }
 
                 var resultRoleAssign = await _accountRepository.AssignRoleToUserAsync(user, RolesAndPolicies.Roles.Cashier);
+
+                var token = await _accountRepository.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+
+                var userCredentialsModel = new UserCredentialsViewModel
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Role = RolesAndPolicies.Roles.Cashier,
+                    Token = token,
+                    ConfirmationLink = confirmationLink
+                };
+
+                //Sending Account Confirmation Email
+                //step 1: converting html template to string
+                var emailContent = await _templateHelper.GetHtmlTemplateAsStringAsync<UserCredentialsViewModel>("Template/NewSubscriberGreetingTemplate", userCredentialsModel);
+                //step 2: sending the mail
+                await _mailer.SendEmailAsync(model.Email, "[Inventory App] Please Confirm Your Account !", emailContent);
 
                 return RedirectToAction("Index", "Cashier");
             }

@@ -1,6 +1,7 @@
 using InventoryApp.Data;
 using InventoryApp.Models;
 using InventoryApp.Repositories;
+using InventoryApp.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 
 AddAuthorizationPolicies();
+
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+
+builder.Services.AddScoped<IMailer, Mailer>();
+builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 var app = builder.Build();

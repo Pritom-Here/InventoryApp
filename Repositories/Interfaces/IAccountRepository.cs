@@ -7,9 +7,12 @@ namespace InventoryApp.Repositories
     public interface IAccountRepository
     {
         IEnumerable<ApplicationUser> GetUsers();
+        Task<ApplicationUser> FindByIdAsync(string id);
         Task<IEnumerable<ApplicationUser>> GetUsersByRoleAsync(string roleName);
         Task<IdentityResult> CreateUserAsync(ApplicationUser user, string password);
+        Task<IdentityResult> ConfirmEmailAsync(ApplicationUser user, string token);
         IdentityRole GetRoleByName(string roleName);
         Task<IdentityResult> AssignRoleToUserAsync(ApplicationUser user, string role);
+        Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user);
     }
 }
