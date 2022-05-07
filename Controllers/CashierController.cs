@@ -1,6 +1,6 @@
 ﻿using InventoryApp.Models;
 using InventoryApp.Models.ViewModels;
-using InventoryApp.Repositories;
+using InventoryApp.Repositories.Interfaces;
 using InventoryApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -12,11 +12,20 @@ namespace InventoryApp.Data
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+
+            var category = builder.Entity<Category>();
+
+            category
+                .HasOne(c => c.Parent)
+                .WithMany(c => c.ChildCategories)
+                .HasForeignKey(c => c.ParentId);
         }
     }
 }

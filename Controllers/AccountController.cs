@@ -1,4 +1,4 @@
-﻿using InventoryApp.Repositories;
+﻿using InventoryApp.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers

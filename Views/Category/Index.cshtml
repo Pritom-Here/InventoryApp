@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Category>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row justify-content-around mb-5">
+    <h1 class="fw-bold">Category Index</h1>
+    <a class="btn btn-success" asp-action="Create" asp-controller="Category" >New Category</a>
+</div>
+    
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Parent Category</th>
+                <th>Parent ID</th>
+                <th>Created On</th>
+                <th>Created By</th>
+                <th>Modified On</th>
+                <th>Modified By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                var parentName = category.ParentId != null ? category.Parent.Name : "";
+
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@parentName</td>
+                    <td>@category.ParentId</td>
+                    <td>@category.CreatedOn.ToString("dd-MMM-yyyy")</td>
+                    <td>@category.Creator.FirstName @category.Creator.LastName</td>
+                    <td>@category.ModifiedOn.ToString("dd-MMM-yyyy")</td>
+                    <td>@category.Modifier.FirstName @category.Modifier.LastName</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

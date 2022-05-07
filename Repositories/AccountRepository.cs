@@ -1,6 +1,7 @@
 ﻿using InventoryApp.Data;
 using InventoryApp.Models;
 using InventoryApp.Models.ViewModels;
+using InventoryApp.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace InventoryApp.Repositories
@@ -28,6 +29,11 @@ namespace InventoryApp.Repositories
         public async Task<ApplicationUser> FindByIdAsync(string id)
         {
             return await _userManager.FindByIdAsync(id);
+        }
+
+        public async Task<ApplicationUser> FindByNameAsync(string name)
+        {   
+            return await _userManager.FindByNameAsync(name);
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetUsersByRoleAsync(string roleName)
