@@ -42,9 +42,50 @@
                     <td>@category.Modifier.FirstName @category.Modifier.LastName</td>
                     <td>
                         <a class="btn btn-primary" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                        <a class="btn btn-danger" data-id="@category.Id" onclick="deleteCategory('@(category.Id)')">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+
+@section Scripts{
+    <script>
+        function deleteCategory(catId){
+            let id = catId;
+            let row = $(this).closest("tr");
+            row.fadeOut();
+
+            bootbox.confirm({
+                
+                message: "deleting this category might have impact on it's child categories. do you want to delete this category?",
+                buttons: {
+                    confirm: {
+                        label: 'yes',
+                        classname: 'btn-danger'
+                    },
+                    cancel: {
+                        label: 'no',
+                        classname: 'btn-success'
+                    }
+                },
+                callback: function (result) {
+                    
+                    if(result){
+                        $.ajax({
+                            url: "/category/deletecategory/" + id,
+                            success: function(response){
+
+                                console.log(response);
+
+                            }
+                        })
+                    }
+
+                }
+            });
+        }
+    </script>
+}

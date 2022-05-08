@@ -545,3 +545,6 @@ F:\ASP.NET Projects\Projects\InventoryApp\bin\Debug\net6.0\zh-Hans\Microsoft.Cod
 F:\ASP.NET Projects\Projects\InventoryApp\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 F:\ASP.NET Projects\Projects\InventoryApp\bin\Debug\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
 F:\ASP.NET Projects\Projects\InventoryApp\bin\Debug\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\MailKit.dll
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\MimeKit.dll
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\BouncyCastle.Crypto.dll

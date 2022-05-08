@@ -108,6 +108,46 @@ namespace InventoryApp.Controllers
             return View(model);
         }
 
+
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            var categoryInDb = await _categoryRepository.GetAsync(id);
+
+            if(categoryInDb == null)
+            {
+                return Json(new { isDeleted = false });
+            }
+
+            categoryInDb.IsDeleted = true;
+
+            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var secondaryCategories = categoriesInDb.Where(c => c.ParentId == categoryInDb.Id).ToList();
+
+            if(secondaryCategories.Count > 0)
+            {
+                foreach (var secondaryCategory in secondaryCategories)
+                {
+                    secondaryCategory.IsDeleted = true;
+
+                    var tartiaryCategories = categoriesInDb.Where(c => c.ParentId == secondaryCategory.ParentId).ToList();
+
+                    if(tartiaryCategories.Count > 0)
+                    {
+                        foreach (var tartiaryCategory in tartiaryCategories)
+                        {
+                            tartiaryCategory.IsDeleted = true;
+                        }
+                    }
+                }
+            }
+
+            await _categoryRepository.SaveChangesAsync();
+
+            return Json(new { isDeleted = true });
+        }
+
+
+
         public async Task<IActionResult> GetChildCategories(string id)
         {
             if (id != null)
