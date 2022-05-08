@@ -109,6 +109,7 @@ namespace InventoryApp.Controllers
         }
 
 
+        [HttpDelete]
         public async Task<IActionResult> DeleteCategory(string id)
         {
             var categoryInDb = await _categoryRepository.GetAsync(id);
