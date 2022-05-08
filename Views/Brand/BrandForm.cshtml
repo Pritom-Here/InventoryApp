@@ -1,0 +1,36 @@
+﻿@using InventoryApp.Models.ViewModels
+@model BrandFormViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Brand Form";
+}
+
+
+<div class="row mb-5">
+    <h1 class="font-weight-bold">Create New</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6 pl-0">
+        <form method="post" asp-action="Save" asp-controller="Brand">
+            @Html.ValidationSummary()
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" type="text" class="form-control" placeholder="Enter Brand Name">
+                <span asp-validation-for="Name" class="form-text text-danger"></span>
+            </div>
+
+            <input asp-for="Id" type="hidden">
+
+            <button class="btn btn-success mt-4" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

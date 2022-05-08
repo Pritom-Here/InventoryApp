@@ -30,6 +30,7 @@ builder.Services.AddScoped<IMailer, Mailer>();
 builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 
 var app = builder.Build();
 

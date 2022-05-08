@@ -1,0 +1,48 @@
+﻿@using InventoryApp.Models
+@model IEnumerable<Brand>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Brands";
+}
+
+
+<div class="d-flex justify-content-between">
+    <h1>Brands Index</h1>
+    <a class="btn btn-success" asp-controller="Brand" asp-action="Create">New Brand</a>
+</div>
+
+<div class="row mt-4">
+
+    <table class="table table-striped text-center">
+        <thead class="bg-black text-white">
+            <tr>
+                <th>Name</th>
+                <th>Date Created</th>
+                <th>Created By</th>
+                <th>Date Modified</th>
+                <th>Modified By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var brand in Model)
+            {
+                <tr>
+                    <td>@brand.Name</td>
+                    <td>@brand.CreatedOn.ToString("dd MMM yyyy")</td>
+                    <td>@brand.Creator.FirstName @brand.Creator.LastName</td>
+                    <td>@brand.ModifiedOn.ToString("dd MMM yyyy")</td>
+                    <td>@brand.Modifier.FirstName @brand.Modifier.LastName</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Brand" asp-action="Edit" asp-route-id="@brand.Id" >Edit</a>
+                        <a class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
