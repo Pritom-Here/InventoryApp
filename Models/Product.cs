@@ -23,5 +23,16 @@ namespace InventoryApp.Models
 
         [Required]
         public string Currency { get; set; }
+
+        [Required]
+        public string CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
+        [Required]
+        public string BrandId { get; set; }
+
+        public Brand Brand { get; set; }
+
     }
 }
