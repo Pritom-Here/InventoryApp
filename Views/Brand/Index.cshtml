@@ -16,7 +16,7 @@
 
 <div class="row mt-4">
 
-    <table class="table table-striped text-center">
+    <table class="table table-striped text-center" id="brands">
         <thead class="bg-black text-white">
             <tr>
                 <th>Name</th>
@@ -38,7 +38,7 @@
                     <td>@brand.Modifier.FirstName @brand.Modifier.LastName</td>
                     <td>
                         <a class="btn btn-primary" asp-controller="Brand" asp-action="Edit" asp-route-id="@brand.Id" >Edit</a>
-                        <a class="btn btn-danger">Delete</a>
+                        <a class="btn btn-danger btn-delete" data-id="@brand.Id">Delete</a>
                     </td>
                 </tr>
             }
@@ -46,3 +46,57 @@
     </table>
 
 </div>
+
+
+@section Scripts{
+    <script>
+    
+        $("#brands .btn-delete").on("click", function(){
+            let row = $(this).parents("tr");
+            let id = $(this).data("id");
+
+            bootbox.confirm({
+                
+                    message: "Deleting this brand might delete it's related products. Do you want to perform this action?",
+                    buttons: {
+                        confirm: {
+                            label: 'yes',
+                            classname: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'no',
+                            classname: 'btn-success'
+                        }
+                    },
+                    callback: function (result) {
+                    
+                        if(result){
+                            $.ajax({
+                                url: "/Brand/DeleteBrand/" + id,
+                                method: "DELETE",
+                                success: function(response){
+                                    
+                                    if(response.isDeleted){
+                                        toastr.success(response.message);
+                                        row.fadeOut();
+                                    }else{
+                                        if(response.status == 404){
+                                            toastr.error(response.message + " Please, refresh the page and try again.");
+                                        }
+                                        else{
+                                            toastr.error("Something went wrong! Please, check your connection or try again later.");
+                                        }
+                                    }
+
+                                }
+                            })
+                        }
+
+                    }
+                });
+
+
+        });
+
+    </script>
+}

@@ -112,12 +112,11 @@ namespace InventoryApp.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory(string id)
         {
+            if (string.IsNullOrWhiteSpace(id)) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
+
             var categoryInDb = await _categoryRepository.GetAsync(id);
 
-            if(categoryInDb == null)
-            {
-                return Json(new { isDeleted = false });
-            }
+            if(categoryInDb == null) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
 
             categoryInDb.IsDeleted = true;
 
@@ -144,7 +143,7 @@ namespace InventoryApp.Controllers
 
             await _categoryRepository.SaveChangesAsync();
 
-            return Json(new { isDeleted = true });
+            return Json(new { status = 200, isDeleted = true, message = "Successfully deleted!" });
         }
 
 

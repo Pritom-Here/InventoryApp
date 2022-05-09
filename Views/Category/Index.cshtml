@@ -69,11 +69,11 @@
                     buttons: {
                         confirm: {
                             label: 'yes',
-                            classname: 'btn-success'
+                            classname: 'btn-danger'
                         },
                         cancel: {
                             label: 'no',
-                            classname: 'btn-danger'
+                            classname: 'btn-success'
                         }
                     },
                     callback: function (result) {
@@ -83,12 +83,17 @@
                                 url: "/category/deletecategory/" + id,
                                 method: "DELETE",
                                 success: function(response){
-                                    console.log(response);
+                                    
                                     if(response.isDeleted){
-                                        toastr.success("The item has been successfully deleted");
+                                        toastr.success(response.message);
                                         row.fadeOut();
                                     }else{
-                                        toastr.error("Sorry, the item couldn't be deleted! Please, refresh the page and try again.");
+                                        if(response.status == 404){
+                                            toastr.error(response.message + " Please, refresh the page and try again.");
+                                        }
+                                        else{
+                                            toastr.error("Something went wrong! Please, check your connection or try again later.");
+                                        }
                                     }
 
                                 }
