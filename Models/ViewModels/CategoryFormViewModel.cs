@@ -11,10 +11,10 @@ namespace InventoryApp.Models.ViewModels
         [Required]
         public string Name { get; set; }
 
-        [Display(Name = "Primary Category")]
+        [Display(Name = "Primary Category (Optional)")]
         public string PrimaryCategoryId { get; set; }
 
-        [Display(Name = "Secondary Category")]
+        [Display(Name = "Secondary Category (Optional)")]
         public string SecondaryCategoryId { get; set; }
     }
 }
