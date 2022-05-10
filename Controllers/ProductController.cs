@@ -1,18 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InventoryApp.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly IProductRepository _productRepository;
 
-        public ProductController()
+        public ProductController(IProductRepository productRepository)
         {
-
+            _productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var productsInDb = await _productRepository.GetAllAsync();
+            return View(productsInDb);
         }
     }
 }

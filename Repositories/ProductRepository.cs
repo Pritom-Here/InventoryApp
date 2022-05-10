@@ -14,25 +14,28 @@ namespace InventoryApp.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
-        public Task CreateAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             var productsInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).ToListAsync();
             return productsInDb;
+            //throw new NotImplementedException();
+
         }
 
-        public Task<Product> GetAsync(string id)
+        public async Task<Product> GetAsync(string id)
         {
-            throw new NotImplementedException();
+            var productInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).FirstOrDefaultAsync(p => p.Id == id);
+            return productInDb;
         }
 
-        public Task SaveChangesAsync()
+        public async Task CreateAsync(Product product)
         {
-            throw new NotImplementedException();
+            await _applicationDbContext.Products.AddAsync(product);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _applicationDbContext.SaveChangesAsync();
         }
     }
 }

@@ -1,0 +1,44 @@
+﻿@using InventoryApp.Models
+@model IEnumerable<Product>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Products";
+}
+
+
+
+<div class="row mt-4">
+
+    <table class="table table-striped text-center" id="brands">
+        <thead class="bg-black text-white">
+            <tr>
+                <th>Name</th>
+                <th>Date Created</th>
+                <th>Created By</th>
+                <th>Date Modified</th>
+                <th>Modified By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.CreatedOn.ToString("dd MMM yyyy")</td>
+                    <td>@product.Creator.FirstName @product.Creator.LastName</td>
+                    <td>@product.ModifiedOn.ToString("dd MMM yyyy")</td>
+                    <td>@product.Modifier.FirstName @product.Modifier.LastName</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Brand" asp-action="Edit" asp-route-id="@product.Id" >Edit</a>
+                        <a class="btn btn-danger btn-delete" data-id="@product.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

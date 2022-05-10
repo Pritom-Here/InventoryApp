@@ -2,7 +2,7 @@
 
 namespace InventoryApp.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
