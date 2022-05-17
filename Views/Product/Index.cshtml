@@ -9,6 +9,10 @@
 }
 
 
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Product Index</h1>
+    <a class="btn btn-success" asp-controller="Product" asp-action="Create">New Brand</a>
+</div>
 
 <div class="row mt-4">
 
@@ -28,9 +32,9 @@
             {
                 <tr>
                     <td>@product.Name</td>
-                    <td>@product.CreatedOn.ToString("dd MMM yyyy")</td>
+                    <td>@product.CreatedOn.ToString("dd MMM, yyyy")</td>
                     <td>@product.Creator.FirstName @product.Creator.LastName</td>
-                    <td>@product.ModifiedOn.ToString("dd MMM yyyy")</td>
+                    <td>@product.ModifiedOn.ToString("dd MMM, yyyy")</td>
                     <td>@product.Modifier.FirstName @product.Modifier.LastName</td>
                     <td>
                         <a class="btn btn-primary" asp-controller="Brand" asp-action="Edit" asp-route-id="@product.Id" >Edit</a>
