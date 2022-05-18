@@ -48,18 +48,14 @@ namespace InventoryApp.Controllers
             if(categoryInDb == null) return NotFound();
 
             var categoriesInDb = await _categoryRepository.GetAllAsync();
-            var primaryCategories = categoriesInDb.Where(c => c.ParentId == null).ToList();
-
-            var secondaryCategory = categoryInDb.ParentId == null ? null : await _categoryRepository.GetAsync(categoryInDb.ParentId);
-            
 
             var viewModel = new CategoryFormViewModel();
 
             viewModel.Id = categoryInDb.Id;
             viewModel.Name = categoryInDb.Name;
-            viewModel.PrimaryCategoryId = categoryInDb.ParentId == null ? null : (secondaryCategory.ParentId == null ? secondaryCategory.Id : secondaryCategory.ParentId);
-            viewModel.SecondaryCategoryId = categoryInDb.ParentId == null ? null : (secondaryCategory.ParentId == null ? null : secondaryCategory.Id);
-            viewModel.PrimaryCategories = primaryCategories;
+            viewModel.PrimaryCategoryId = categoryInDb.CategoryType == Category.Tertiary ? categoryInDb.Parent.ParentId : categoryInDb.ParentId; // Else block: if secondary, then parentId. If primary, then parentId value null. Thus primaryCategory
+            viewModel.SecondaryCategoryId = categoryInDb.CategoryType == Category.Tertiary ? categoryInDb.ParentId : null;
+            viewModel.PrimaryCategories = categoriesInDb.Where(c => c.CategoryType == Category.Primary).ToList();
             viewModel.SecondaryCategories = categoriesInDb.Where(c => c.ParentId == viewModel.PrimaryCategoryId).ToList();
             
             return View("CategoryForm", viewModel);
@@ -79,6 +75,11 @@ namespace InventoryApp.Controllers
 
                     categoryInDb.Name = model.Name;
                     categoryInDb.ParentId = model.SecondaryCategoryId != null ? model.SecondaryCategoryId : model.PrimaryCategoryId;
+                    categoryInDb.CategoryType = model.SecondaryCategoryId == null && model.PrimaryCategoryId == null 
+                                                                                                                ? Category.Primary 
+                                                                                                                : (model.SecondaryCategoryId == null 
+                                                                                                                                                ? Category.Secondary : 
+                                                                                                                                                Category.Tertiary);
                     categoryInDb.ModifiedOn = DateTime.Now;
                     categoryInDb.ModifiedBy = user.Id;
                 }
@@ -87,6 +88,11 @@ namespace InventoryApp.Controllers
                     var category = new Category();
                     category.Name = model.Name;
                     category.ParentId = model.SecondaryCategoryId != null ? model.SecondaryCategoryId : model.PrimaryCategoryId;
+                    category.CategoryType = model.SecondaryCategoryId == null && model.PrimaryCategoryId == null
+                                                                                                                ? Category.Primary
+                                                                                                                : (model.SecondaryCategoryId == null
+                                                                                                                                                ? Category.Secondary :
+                                                                                                                                                Category.Tertiary);
                     category.CreatedOn = DateTime.Now;
                     category.CreatedBy = user.Id;
                     category.ModifiedOn = category.CreatedOn;
