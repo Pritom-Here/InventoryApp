@@ -16,7 +16,7 @@ namespace InventoryApp.Repositories
 
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            var productsInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).ToListAsync();
+            var productsInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).Include(p => p.Creator).Include(p => p.Modifier).ToListAsync();
             return productsInDb;
             //throw new NotImplementedException();
 
@@ -24,7 +24,7 @@ namespace InventoryApp.Repositories
 
         public async Task<Product> GetAsync(string id)
         {
-            var productInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).FirstOrDefaultAsync(p => p.Id == id);
+            var productInDb = await _applicationDbContext.Products.Include(p => p.Category).Include(p => p.Brand).Include(p => p.Creator).Include(p => p.Modifier).FirstOrDefaultAsync(p => p.Id == id);
             return productInDb;
         }
 

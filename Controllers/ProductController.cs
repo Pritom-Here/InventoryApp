@@ -8,24 +8,27 @@ namespace InventoryApp.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly IProductImageRepository _productImageRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBrandRepository _brandRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly IProductImageRepository _productImageRepository;
+        private readonly IAccountRepository _accountRepository;
 
         public ProductController(
             IProductRepository productRepository, 
+            IProductImageRepository productImageRepository,
             ICategoryRepository categoryRepository, 
             IBrandRepository brandRepository, 
             IWebHostEnvironment hostingEnvironment,
-            IProductImageRepository productImageRepository
+            IAccountRepository accountRepository
         )
         {
             _productRepository = productRepository;
+            _productImageRepository = productImageRepository;
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
             _hostingEnvironment = hostingEnvironment;
-            _productImageRepository = productImageRepository;
+            _accountRepository = accountRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -51,53 +54,42 @@ namespace InventoryApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Save(ProductFormViewModel model)
         {
+
+            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var brandsInDb = await _brandRepository.GetAllAsync();
+
+            model.Categories = categoriesInDb.Where(c => c.CategoryType == Category.Tertiary).ToList();
+            model.Brands = brandsInDb;
+
             if (ModelState.IsValid)
             {
+                var user = await _accountRepository.FindByNameAsync(User.Identity.Name);
+
                 if(model.Id != null)
                 {
 
                 }
                 else
                 {
-                    var product = new Product
+                    Product product = await AddProductAsync(model, user);
+
+                    if (model.Images != null && model.Images.Count > 0)
                     {
-                        Name = model.Name,
-                        Unit = model.Unit,
-                        Price = model.Price,
-                        Currency = model.Currency,
-                        InStock = model.InStock,
-                        WarningLevel = model.WarningLevel,
-                        CategoryId = model.CategoryId,
-                        BrandId = model.BrandId
-                    };
-
-                    await _productRepository.CreateAsync(product);
-
-                    if(model.Images != null && model.Images.Count > 0)
-                    {
-                        string uniqueFileName = "";
-
-                        foreach (var image in model.Images)
+                        if (model.Images.Count != 4)
                         {
-                            string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images/products");
-                            uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
-                            string filePath = Path.Combine(folderPath, uniqueFileName);
-                            image.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                            var productImage = new ProductImage
-                            {
-                                ImageName = uniqueFileName,
-                                ProductId = product.Id
-                            };
-
-                            //ProductImage Create
-                            await _productImageRepository.CreateAsync(productImage);
-
+                            ModelState.AddModelError("", "Number of images should not be less or more than 4");
+                            return View("ProductForm", model);
                         }
-                    }
-                    else
-                    {
 
+                        var isImageTypeValid = ValidateFileExtension(model.Images);
+
+                        if (!isImageTypeValid)
+                        {
+                            ModelState.AddModelError("", "Invalid file type. Only images with .jpg/.jpeg/.png extension are allowed");
+                            return View("ProductForm", model);
+                        }
+
+                        await AddAndUploadProductImagesAsync(model.Images, product, user);
                     }
                 }
 
@@ -106,15 +98,75 @@ namespace InventoryApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
-            var brandsInDb = await _brandRepository.GetAllAsync();
-
-            model.Categories = categoriesInDb.Where(c => c.CategoryType == Category.Tertiary).ToList();
-            model.Brands = brandsInDb;
-
-            return View(model);
+            return View("ProductForm", model);
         }
 
+        private async Task<Product> AddProductAsync(ProductFormViewModel model, ApplicationUser user)
+        {
+            var product = new Product
+            {
+                Name = model.Name,
+                Unit = model.Unit,
+                Price = model.Price,
+                Currency = model.Currency,
+                InStock = model.InStock,
+                WarningLevel = model.WarningLevel,
+                CategoryId = model.CategoryId,
+                BrandId = model.BrandId,
+                CreatedBy = user.Id,
+                CreatedOn = DateTime.Now,
+                ModifiedBy = user.Id,
+                ModifiedOn = DateTime.Now
+            };
+
+            await _productRepository.CreateAsync(product);
+            return product;
+        }
+
+        private async Task AddAndUploadProductImagesAsync(List<IFormFile> productImages, Product product, ApplicationUser user)
+        {
+            string uniqueFileName = "";
+
+            foreach (var image in productImages)
+            {
+                string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                string filePath = Path.Combine(folderPath, uniqueFileName);
+                image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                var productImage = new ProductImage
+                {
+                    ImageName = uniqueFileName,
+                    ProductId = product.Id,
+                    CreatedBy = user.Id,
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = user.Id,
+                    ModifiedOn = DateTime.Now
+                };
+
+                //ProductImage Create
+                await _productImageRepository.CreateAsync(productImage);
+
+            }
+        }
+
+        private bool ValidateFileExtension(List<IFormFile> images)
+        {
+            if (images.Count != 4) return false;
+
+            foreach (var image in images)
+            {
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+                string fileExtension = Path.GetExtension(image.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
     }
 }

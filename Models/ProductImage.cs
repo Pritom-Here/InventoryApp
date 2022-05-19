@@ -2,7 +2,7 @@
 
 namespace InventoryApp.Models
 {
-    public class ProductImage
+    public class ProductImage : BaseEntity
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();

@@ -15,6 +15,7 @@ namespace InventoryApp.Models.ViewModels
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Upload)]
         public List<IFormFile> Images { get; set; }
 
         [Required]
