@@ -11,13 +11,21 @@ namespace InventoryApp.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBrandRepository _brandRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IProductImageRepository _productImageRepository;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IBrandRepository brandRepository, IWebHostEnvironment hostingEnvironment)
+        public ProductController(
+            IProductRepository productRepository, 
+            ICategoryRepository categoryRepository, 
+            IBrandRepository brandRepository, 
+            IWebHostEnvironment hostingEnvironment,
+            IProductImageRepository productImageRepository
+        )
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
             _hostingEnvironment = hostingEnvironment;
+            _productImageRepository = productImageRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -76,16 +84,20 @@ namespace InventoryApp.Controllers
                             string filePath = Path.Combine(folderPath, uniqueFileName);
                             image.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                            var ProductImage = new ProductImage
+                            var productImage = new ProductImage
                             {
                                 ImageName = uniqueFileName,
                                 ProductId = product.Id
                             };
 
-                            //ProductImage Repository
                             //ProductImage Create
+                            await _productImageRepository.CreateAsync(productImage);
 
                         }
+                    }
+                    else
+                    {
+
                     }
                 }
 
