@@ -1,6 +1,7 @@
 ﻿using InventoryApp.Data;
 using InventoryApp.Models;
 using InventoryApp.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryApp.Repositories
 {
@@ -12,7 +13,12 @@ namespace InventoryApp.Repositories
         {
             _applicationDbContext = applicationDbContext;
         }
-
+        
+        public async Task<IEnumerable<ProductImage>> GetAllAsync()
+        {
+            return await _applicationDbContext.ProductImages.Include(img => img.CreatedBy).Include(img => img.ModifiedBy).ToListAsync();
+        }
+        
         public async Task CreateAsync(ProductImage productImage)
         {
             await _applicationDbContext.ProductImages.AddAsync(productImage);

@@ -60,6 +60,7 @@ namespace InventoryApp.Controllers
 
             viewModel.Id = productInDb.Id;
             viewModel.Name = productInDb.Name;
+            viewModel.Images = new List<IFormFile>();
             viewModel.Unit = productInDb.Unit;
             viewModel.Price = productInDb.Price;
             viewModel.Currency = productInDb.Currency;
@@ -88,6 +89,23 @@ namespace InventoryApp.Controllers
 
                 if(model.Id != null)
                 {
+                    if(model.Images.Count > 0)
+                    {
+                        var productImagesInDb = await _productImageRepository.GetAllAsync();
+
+                        var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
+
+                        string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+
+                        foreach (var productImage in productImages)
+                        {
+                            var filePath = Path.Combine(folderPath, productImage.ImageName);
+
+                            System.IO.File.Delete(filePath);
+                        }
+
+                    }
+
 
                 }
                 else
