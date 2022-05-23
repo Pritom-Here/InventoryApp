@@ -189,10 +189,6 @@ namespace InventoryApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -224,6 +220,16 @@ namespace InventoryApp.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("PrimaryCategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SecondaryCategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TertiaryCategoryId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -235,11 +241,15 @@ namespace InventoryApp.Data.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("PrimaryCategoryId");
+
+                    b.HasIndex("SecondaryCategoryId");
+
+                    b.HasIndex("TertiaryCategoryId");
 
                     b.ToTable("Products");
                 });
@@ -474,12 +484,6 @@ namespace InventoryApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("InventoryApp.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("InventoryApp.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
@@ -492,13 +496,31 @@ namespace InventoryApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Brand");
+                    b.HasOne("InventoryApp.Models.Category", "PrimaryCategory")
+                        .WithMany()
+                        .HasForeignKey("PrimaryCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("Category");
+                    b.HasOne("InventoryApp.Models.Category", "SecondaryCategory")
+                        .WithMany()
+                        .HasForeignKey("SecondaryCategoryId");
+
+                    b.HasOne("InventoryApp.Models.Category", "TertiaryCategory")
+                        .WithMany()
+                        .HasForeignKey("TertiaryCategoryId");
+
+                    b.Navigation("Brand");
 
                     b.Navigation("Creator");
 
                     b.Navigation("Modifier");
+
+                    b.Navigation("PrimaryCategory");
+
+                    b.Navigation("SecondaryCategory");
+
+                    b.Navigation("TertiaryCategory");
                 });
 
             modelBuilder.Entity("InventoryApp.Models.ProductImage", b =>

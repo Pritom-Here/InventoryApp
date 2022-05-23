@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryApp.Models
 {
@@ -25,11 +26,26 @@ namespace InventoryApp.Models
         [Required]
         public double WarningLevel { get; set; }
 
+        
         [Required]
-        public string CategoryId { get; set; }
+        public string PrimaryCategoryId { get; set; }
 
-        public Category Category { get; set; }
+        [ForeignKey("PrimaryCategoryId")]
+        public Category PrimaryCategory { get; set; }
+        
+        
+        public string SecondaryCategoryId { get; set; }
 
+        [ForeignKey("SecondaryCategoryId")]
+        public Category SecondaryCategory { get; set; }
+        
+
+        public string TertiaryCategoryId { get; set; }
+
+        [ForeignKey("TertiaryCategoryId")]
+        public Category TertiaryCategory { get; set; }
+
+        
         [Required]
         public string BrandId { get; set; }
 

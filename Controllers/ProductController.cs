@@ -31,35 +31,56 @@ namespace InventoryApp.Controllers
             _accountRepository = accountRepository;
         }
 
+
         public async Task<IActionResult> Index()
         {
             var productsInDb = await _productRepository.GetAllAsync();
             return View(productsInDb);
         }
 
+
         public async Task<IActionResult> Create()
         {
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
-            var brandsInDb = await _brandRepository.GetAllAsync();
-
-            var viewModel = new ProductFormViewModel
-            {
-                Categories = categoriesInDb.Where(c => c.CategoryType == Category.Tertiary).ToList(),
-                Brands = brandsInDb
-            };
+            //var categoriesInDb = await _categoryRepository.GetAllAsync();
+            //var brandsInDb = await _brandRepository.GetAllAsync();
+            var viewModel = await PopulateModelAsync(new ProductFormViewModel());
             return View("ProductForm", viewModel);
         }
+
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return NotFound();
+
+            var productInDb = await _productRepository.GetAsync(id);
+
+            if(productInDb == null) return NotFound();
+
+            var viewModel = new ProductFormViewModel(); 
+
+            viewModel.Id = productInDb.Id;
+            viewModel.Name = productInDb.Name;
+            viewModel.Unit = productInDb.Unit;
+            viewModel.Price = productInDb.Price;
+            viewModel.Currency = productInDb.Currency;
+            viewModel.InStock = productInDb.InStock;
+            viewModel.WarningLevel = productInDb.WarningLevel;
+            viewModel.PrimaryCategoryId = productInDb.PrimaryCategoryId;
+            viewModel.SecondaryCategoryId = productInDb.SecondaryCategoryId;
+            viewModel.TertiaryCategoryId = productInDb.TertiaryCategoryId;
+            viewModel.BrandId = productInDb.BrandId;
+
+            viewModel = await PopulateModelAsync(viewModel);
+            
+            return View("ProductForm", viewModel);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Save(ProductFormViewModel model)
         {
-
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
-            var brandsInDb = await _brandRepository.GetAllAsync();
-
-            model.Categories = categoriesInDb.Where(c => c.CategoryType == Category.Tertiary).ToList();
-            model.Brands = brandsInDb;
+            model = await PopulateModelAsync(model);
 
             if (ModelState.IsValid)
             {
@@ -73,24 +94,8 @@ namespace InventoryApp.Controllers
                 {
                     Product product = await AddProductAsync(model, user);
 
-                    if (model.Images != null && model.Images.Count > 0)
-                    {
-                        if (model.Images.Count != 4)
-                        {
-                            ModelState.AddModelError("", "Number of images should not be less or more than 4");
-                            return View("ProductForm", model);
-                        }
+                    await AddAndUploadProductImagesAsync(model.Images, product, user);
 
-                        var isImageTypeValid = ValidateFileExtension(model.Images);
-
-                        if (!isImageTypeValid)
-                        {
-                            ModelState.AddModelError("", "Invalid file type. Only images with .jpg/.jpeg/.png extension are allowed");
-                            return View("ProductForm", model);
-                        }
-
-                        await AddAndUploadProductImagesAsync(model.Images, product, user);
-                    }
                 }
 
                 await _productRepository.SaveChangesAsync();
@@ -100,6 +105,22 @@ namespace InventoryApp.Controllers
 
             return View("ProductForm", model);
         }
+
+
+
+        private async Task<ProductFormViewModel> PopulateModelAsync(ProductFormViewModel model)
+        {
+            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var brandsInDb = await _brandRepository.GetAllAsync();
+
+            model.PrimaryCategories = categoriesInDb.Where(c => c.CategoryType == Category.Primary).ToList();
+            model.SecondaryCategories = model.PrimaryCategoryId == null ? new List<Category>() : categoriesInDb.Where(c => c.ParentId == model.PrimaryCategoryId).ToList();
+            model.TertiaryCategories = model.SecondaryCategoryId == null ? new List<Category>() : categoriesInDb.Where(c => c.ParentId == model.SecondaryCategoryId).ToList();
+            model.Brands = brandsInDb;
+
+            return model;
+        }
+
 
         private async Task<Product> AddProductAsync(ProductFormViewModel model, ApplicationUser user)
         {
@@ -111,7 +132,9 @@ namespace InventoryApp.Controllers
                 Currency = model.Currency,
                 InStock = model.InStock,
                 WarningLevel = model.WarningLevel,
-                CategoryId = model.CategoryId,
+                PrimaryCategoryId = model.PrimaryCategoryId,
+                SecondaryCategoryId = model.SecondaryCategoryId,
+                TertiaryCategoryId = model.TertiaryCategoryId,
                 BrandId = model.BrandId,
                 CreatedBy = user.Id,
                 CreatedOn = DateTime.Now,
@@ -122,6 +145,7 @@ namespace InventoryApp.Controllers
             await _productRepository.CreateAsync(product);
             return product;
         }
+
 
         private async Task AddAndUploadProductImagesAsync(List<IFormFile> productImages, Product product, ApplicationUser user)
         {
@@ -148,24 +172,6 @@ namespace InventoryApp.Controllers
                 await _productImageRepository.CreateAsync(productImage);
 
             }
-        }
-
-        private bool ValidateFileExtension(List<IFormFile> images)
-        {
-            if (images.Count != 4) return false;
-
-            foreach (var image in images)
-            {
-                string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
-                string fileExtension = Path.GetExtension(image.FileName).ToLower();
-
-                if (!allowedExtensions.Contains(fileExtension))
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
 
     }

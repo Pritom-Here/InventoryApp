@@ -56,7 +56,7 @@ namespace InventoryApp.Controllers
             viewModel.PrimaryCategoryId = categoryInDb.CategoryType == Category.Tertiary ? categoryInDb.Parent.ParentId : categoryInDb.ParentId; // Else block: if secondary, then parentId. If primary, then parentId value null. Thus primaryCategory
             viewModel.SecondaryCategoryId = categoryInDb.CategoryType == Category.Tertiary ? categoryInDb.ParentId : null;
             viewModel.PrimaryCategories = categoriesInDb.Where(c => c.CategoryType == Category.Primary).ToList();
-            viewModel.SecondaryCategories = categoriesInDb.Where(c => c.ParentId == viewModel.PrimaryCategoryId).ToList();
+            viewModel.SecondaryCategories = categoriesInDb.Where(c => c.CategoryType == Category.Secondary && c.ParentId != null && c.ParentId == viewModel.PrimaryCategoryId).ToList();
             
             return View("CategoryForm", viewModel);
         }

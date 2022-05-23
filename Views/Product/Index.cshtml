@@ -37,7 +37,7 @@
                     <td>@product.ModifiedOn.ToString("dd MMM, yyyy")</td>
                     <td>@product.Modifier.FirstName @product.Modifier.LastName</td>
                     <td>
-                        <a class="btn btn-primary" asp-controller="Brand" asp-action="Edit" asp-route-id="@product.Id" >Edit</a>
+                        <a class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" >Edit</a>
                         <a class="btn btn-danger btn-delete" data-id="@product.Id">Delete</a>
                     </td>
                 </tr>
