@@ -8,153 +8,153 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = InventoryApp
 build_property.RootNamespace = InventoryApp
-build_property.ProjectDir = C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\
+build_property.ProjectDir = F:\ASP.NET Projects\Projects\InventoryApp\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp
+build_property.MSBuildProjectDirectory = F:\ASP.NET Projects\Projects\InventoryApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Login.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Logout.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Manage/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Manage/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/Register.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/_ViewImports.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Areas/Identity/Pages/_ViewStart.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Account/ConfirmEmail.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Admin/Create.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Admin/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Admin/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Brand/BrandForm.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Brand/BrandForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcQnJhbmRGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Brand/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Brand/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Cashier/Create.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Cashier/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FzaGllclxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Cashier/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Cashier/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FzaGllclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Category/CategoryForm.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Category/CategoryForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcQ2F0ZWdvcnlGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Category/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Category/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Home/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Home/Privacy.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Product/Index.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Product/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Product/ProductForm.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Product/ProductForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0Rm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/Error.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_ContentHeaderPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_ContentHeaderPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db250ZW50SGVhZGVyUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_HeaderNavbarPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_HeaderNavbarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXJOYXZiYXJQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_LoginPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_PreloaderPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_PreloaderPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QcmVsb2FkZXJQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_SidebarMenuPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_SidebarMenuPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyTWVudVBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_SidebarPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_SidebarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_SidebarUserPanelPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_SidebarUserPanelPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyVXNlclBhbmVsUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Template/NewSubscriberGreetingTemplate.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Template/NewSubscriberGreetingTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVtcGxhdGVcTmV3U3Vic2NyaWJlckdyZWV0aW5nVGVtcGxhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/_ViewImports.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/_ViewStart.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahta/OneDrive/Desktop/Pritom Chakraborty/InventoryApp/Views/Shared/_Layout.cshtml]
+[F:/ASP.NET Projects/Projects/InventoryApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-4hgdbmy3np

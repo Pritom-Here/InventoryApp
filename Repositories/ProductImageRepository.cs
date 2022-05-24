@@ -16,7 +16,7 @@ namespace InventoryApp.Repositories
         
         public async Task<IEnumerable<ProductImage>> GetAllAsync()
         {
-            return await _applicationDbContext.ProductImages.Include(img => img.CreatedBy).Include(img => img.ModifiedBy).ToListAsync();
+            return await _applicationDbContext.ProductImages.Include(img => img.Creator).Include(img => img.Modifier).ToListAsync();
         }
         
         public async Task CreateAsync(ProductImage productImage)

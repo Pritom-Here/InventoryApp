@@ -17,11 +17,11 @@ namespace InventoryApp.Models.ViewModels
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Upload)]
-        [NumberOfItemsInList(4, 4, ErrorMessage = "Number of images should not be less or more than 4")]
-        [AllowedExtensions(new string[]{".jpg", ".jpeg", ".png"})]
-        public List<IFormFile> Images { get; set; }
+        [NumberOfItemsInList(0, 4, ErrorMessage = "Number of images should not be more than 4")]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png" })]
+        public List<IFormFile> Images { get; set; } = new List<IFormFile>();
 
         [Required]
         public string Unit { get; set; }

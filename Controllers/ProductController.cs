@@ -35,6 +35,7 @@ namespace InventoryApp.Controllers
         public async Task<IActionResult> Index()
         {
             var productsInDb = await _productRepository.GetAllAsync();
+
             return View(productsInDb);
         }
 
@@ -60,7 +61,7 @@ namespace InventoryApp.Controllers
 
             viewModel.Id = productInDb.Id;
             viewModel.Name = productInDb.Name;
-            viewModel.Images = new List<IFormFile>();
+            //viewModel.Images = new List<IFormFile>();
             viewModel.Unit = productInDb.Unit;
             viewModel.Price = productInDb.Price;
             viewModel.Currency = productInDb.Currency;
@@ -89,32 +90,12 @@ namespace InventoryApp.Controllers
 
                 if(model.Id != null)
                 {
-                    if(model.Images.Count > 0)
-                    {
-                        var productImagesInDb = await _productImageRepository.GetAllAsync();
-
-                        var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
-
-                        string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
-
-                        foreach (var productImage in productImages)
-                        {
-                            var filePath = Path.Combine(folderPath, productImage.ImageName);
-
-                            System.IO.File.Delete(filePath);
-                        }
-
-                    }
-
-
+                    await DeletePreviousProductImages(model);
                 }
-                else
-                {
-                    Product product = await AddProductAsync(model, user);
 
-                    await AddAndUploadProductImagesAsync(model.Images, product, user);
+                Product product = await AddOrUpdateProductAsync(model, user);
 
-                }
+                await AddAndUploadProductImagesAsync(model.Images, product, user);
 
                 await _productRepository.SaveChangesAsync();
 
@@ -124,7 +105,23 @@ namespace InventoryApp.Controllers
             return View("ProductForm", model);
         }
 
+        private async Task DeletePreviousProductImages(ProductFormViewModel model)
+        {
+            if (model.Images.Count > 0)
+            {
+                var productImagesInDb = await _productImageRepository.GetAllAsync();
 
+                var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
+
+                string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+
+                foreach (var productImage in productImages)
+                {
+                    productImage.IsDeleted = true;
+                }
+
+            }
+        }
 
         private async Task<ProductFormViewModel> PopulateModelAsync(ProductFormViewModel model)
         {
@@ -136,31 +133,59 @@ namespace InventoryApp.Controllers
             model.TertiaryCategories = model.SecondaryCategoryId == null ? new List<Category>() : categoriesInDb.Where(c => c.ParentId == model.SecondaryCategoryId).ToList();
             model.Brands = brandsInDb;
 
+            //if (model.Id != null)
+            //{
+            //    if (model.Images.Count == 0)
+            //    {
+            //        var productImagesInDb = await _productImageRepository.GetAllAsync();
+            //        var images = productImagesInDb.Where(pimg => pimg.ProductId == model.Id && !pimg.IsDeleted).ToList();
+
+            //        var folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+
+            //        foreach (var img in images)
+            //        {
+            //            var filePath = Path.Combine(folderPath, img.ImageName);
+            //            var stream = System.IO.File.OpenRead(filePath);
+
+            //            model.Images.Add(new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name)));
+            //        }
+            //    }
+            //}
+
             return model;
         }
 
 
-        private async Task<Product> AddProductAsync(ProductFormViewModel model, ApplicationUser user)
+        private async Task<Product> AddOrUpdateProductAsync(ProductFormViewModel model, ApplicationUser user)
         {
-            var product = new Product
-            {
-                Name = model.Name,
-                Unit = model.Unit,
-                Price = model.Price,
-                Currency = model.Currency,
-                InStock = model.InStock,
-                WarningLevel = model.WarningLevel,
-                PrimaryCategoryId = model.PrimaryCategoryId,
-                SecondaryCategoryId = model.SecondaryCategoryId,
-                TertiaryCategoryId = model.TertiaryCategoryId,
-                BrandId = model.BrandId,
-                CreatedBy = user.Id,
-                CreatedOn = DateTime.Now,
-                ModifiedBy = user.Id,
-                ModifiedOn = DateTime.Now
-            };
+            Product product = null;
 
-            await _productRepository.CreateAsync(product);
+            if (model.Id != null)
+            {
+                product = await _productRepository.GetAsync(model.Id);
+            }
+
+            product.Name = model.Name;
+            product.Unit = model.Unit;
+            product.Price = model.Price;
+            product.Currency = model.Currency;
+            product.InStock = model.InStock;
+            product.WarningLevel = model.WarningLevel;
+            product.PrimaryCategoryId = model.PrimaryCategoryId;
+            product.SecondaryCategoryId = model.SecondaryCategoryId;
+            product.TertiaryCategoryId = model.TertiaryCategoryId;
+            product.BrandId = model.BrandId;
+            product.ModifiedBy = user.Id;
+            product.ModifiedOn = DateTime.Now;
+
+            if (model.Id == null)
+            {
+                product.CreatedBy = user.Id;
+                product.CreatedOn = DateTime.Now;
+
+                await _productRepository.CreateAsync(product);
+            }
+
             return product;
         }
 
