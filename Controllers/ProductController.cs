@@ -113,7 +113,7 @@ namespace InventoryApp.Controllers
 
                 var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
 
-                string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+                //string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
 
                 foreach (var productImage in productImages)
                 {
@@ -158,7 +158,7 @@ namespace InventoryApp.Controllers
 
         private async Task<Product> AddOrUpdateProductAsync(ProductFormViewModel model, ApplicationUser user)
         {
-            Product product = null;
+            Product product = new Product();
 
             if (model.Id != null)
             {
