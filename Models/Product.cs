@@ -12,6 +12,9 @@ namespace InventoryApp.Models
         public string Name { get; set; }
         
         [Required]
+        public string ProductCode { get; set; }
+        
+        [Required]
         public string Unit { get; set; }
         
         [Required]

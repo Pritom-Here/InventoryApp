@@ -28,6 +28,7 @@ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpS
 
 builder.Services.AddScoped<IMailer, Mailer>();
 builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
+builder.Services.AddScoped<IRandomCodeGenerator, RandomCodeGenerator>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();

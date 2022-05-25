@@ -1,6 +1,7 @@
 ﻿using InventoryApp.Models;
 using InventoryApp.Models.ViewModels;
 using InventoryApp.Repositories.Interfaces;
+using InventoryApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers
@@ -13,6 +14,7 @@ namespace InventoryApp.Controllers
         private readonly IBrandRepository _brandRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IAccountRepository _accountRepository;
+        private readonly IRandomCodeGenerator _randomCodeGenerator;
 
         public ProductController(
             IProductRepository productRepository, 
@@ -20,7 +22,8 @@ namespace InventoryApp.Controllers
             ICategoryRepository categoryRepository, 
             IBrandRepository brandRepository, 
             IWebHostEnvironment hostingEnvironment,
-            IAccountRepository accountRepository
+            IAccountRepository accountRepository,
+            IRandomCodeGenerator randomCodeGenerator
         )
         {
             _productRepository = productRepository;
@@ -29,6 +32,7 @@ namespace InventoryApp.Controllers
             _brandRepository = brandRepository;
             _hostingEnvironment = hostingEnvironment;
             _accountRepository = accountRepository;
+            _randomCodeGenerator = randomCodeGenerator;
         }
 
 
@@ -105,24 +109,6 @@ namespace InventoryApp.Controllers
             return View("ProductForm", model);
         }
 
-        private async Task DeletePreviousProductImages(ProductFormViewModel model)
-        {
-            if (model.Images.Count > 0)
-            {
-                var productImagesInDb = await _productImageRepository.GetAllAsync();
-
-                var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
-
-                //string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
-
-                foreach (var productImage in productImages)
-                {
-                    productImage.IsDeleted = true;
-                }
-
-            }
-        }
-
         private async Task<ProductFormViewModel> PopulateModelAsync(ProductFormViewModel model)
         {
             var categoriesInDb = await _categoryRepository.GetAllAsync();
@@ -180,6 +166,7 @@ namespace InventoryApp.Controllers
 
             if (model.Id == null)
             {
+                product.ProductCode = await GetProductCode();
                 product.CreatedBy = user.Id;
                 product.CreatedOn = DateTime.Now;
 
@@ -189,6 +176,19 @@ namespace InventoryApp.Controllers
             return product;
         }
 
+        private async Task<string> GetProductCode()
+        {
+            var productCode = "";
+
+            while (true)
+            {
+                productCode = _randomCodeGenerator.GenerateRandomCode();
+                var product = await _productRepository.GetByProductCodeAsync(productCode);
+                if (product == null) break;
+            }
+
+            return productCode;
+        }
 
         private async Task AddAndUploadProductImagesAsync(List<IFormFile> productImages, Product product, ApplicationUser user)
         {
@@ -213,6 +213,24 @@ namespace InventoryApp.Controllers
 
                 //ProductImage Create
                 await _productImageRepository.CreateAsync(productImage);
+
+            }
+        }
+
+        private async Task DeletePreviousProductImages(ProductFormViewModel model)
+        {
+            if (model.Images.Count > 0)
+            {
+                var productImagesInDb = await _productImageRepository.GetAllAsync();
+
+                var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
+
+                //string folderPath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\products");
+
+                foreach (var productImage in productImages)
+                {
+                    productImage.IsDeleted = true;
+                }
 
             }
         }
