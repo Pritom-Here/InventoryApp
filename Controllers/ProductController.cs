@@ -2,10 +2,12 @@
 using InventoryApp.Models.ViewModels;
 using InventoryApp.Repositories.Interfaces;
 using InventoryApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers
 {
+    [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;

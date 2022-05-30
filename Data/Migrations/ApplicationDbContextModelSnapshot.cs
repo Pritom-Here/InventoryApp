@@ -542,7 +542,7 @@ namespace InventoryApp.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("InventoryApp.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -608,6 +608,11 @@ namespace InventoryApp.Data.Migrations
             modelBuilder.Entity("InventoryApp.Models.Category", b =>
                 {
                     b.Navigation("ChildCategories");
+                });
+
+            modelBuilder.Entity("InventoryApp.Models.Product", b =>
+                {
+                    b.Navigation("ProductImages");
                 });
 #pragma warning restore 612, 618
         }

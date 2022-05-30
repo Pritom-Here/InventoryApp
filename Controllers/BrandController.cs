@@ -1,10 +1,12 @@
 ﻿using InventoryApp.Models;
 using InventoryApp.Models.ViewModels;
 using InventoryApp.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryApp.Controllers
 {
+    [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class BrandController : Controller
     {
         private readonly IBrandRepository _brandRepository;

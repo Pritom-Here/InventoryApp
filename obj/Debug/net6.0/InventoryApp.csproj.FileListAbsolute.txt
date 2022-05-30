@@ -397,7 +397,6 @@ F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\InventoryApp.RazorAss
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\InventoryApp.RazorAssemblyInfo.cs
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\staticwebassets.build.json
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\staticwebassets.development.json
-F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\bundle\InventoryApp.styles.css
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\projectbundle\InventoryApp.bundle.scp.css
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\InventoryApp.csproj.CopyComplete
@@ -548,3 +547,6 @@ F:\ASP.NET Projects\Projects\InventoryApp\bin\Debug\net6.0\runtimes\win-arm64\li
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\MailKit.dll
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\MimeKit.dll
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_ShoppingAreaLayout.cshtml.rz.scp.css
+F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_AdminDashboardLayout.cshtml.rz.scp.css
+F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_CustomerDashboardLayout.cshtml.rz.scp.css

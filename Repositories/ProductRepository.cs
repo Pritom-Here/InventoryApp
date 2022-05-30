@@ -23,6 +23,7 @@ namespace InventoryApp.Repositories
                                                             .Include(p => p.Brand)
                                                             .Include(p => p.Creator)
                                                             .Include(p => p.Modifier)
+                                                            .Include(p => p.ProductImages)
                                                             .ToListAsync();
             return productsInDb;
             //throw new NotImplementedException();

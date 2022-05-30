@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{    
+    <div class="offcanvas__links">
+        <a class="text-uppercase text-success" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="font-size:13px; letter-spacing:2px">
+            @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName
+        </a>
+    </div>
+    <div class="offcanvas__top__hover">
+        <form class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="btn p-0 nav-link text-danger text-uppercase" style="font-size:13px; letter-spacing:2px"> Logout!</button>                
+        </form>
+    </div>
+}
+else
+{
+    <div class="offcanvas__links">
+        <a class="text-danger text-uppercase" asp-area="Identity" asp-page="/Account/Login" style="font-size:13px; letter-spacing:2px">Sign in</a>
+    </div>
+    <div class="offcanvas__top__hover">
+        <a class="text-success text-uppercase" asp-area="Identity" asp-page="/Account/Register" style="font-size:13px; letter-spacing:2px">Sign Up</a>
+    </div>
+}

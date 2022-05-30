@@ -1,0 +1,26 @@
+﻿<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+        @*<div class="offcanvas__links">
+            <a class="text-danger text-uppercase" asp-area="Identity" asp-page="/Account/Login" style="font-size:13px; letter-spacing:2px">Sign In</a>
+        </div>
+        <div class="offcanvas__top__hover">
+            <a class="text-success text-uppercase" asp-area="Identity" asp-page="/Account/Register" style="font-size:13px; letter-spacing:2px">Sign Up</a>            
+        </div>*@
+        <partial name="_OffCanvasSignInPartial.cshtml" />
+
+    </div>
+    <div class="offcanvas__nav__option">
+        <a href="#">
+            <img src="~/images/template/customer/icon/heart.png" alt="" />
+        </a>
+        <a href="#">
+            <img src="~/images/template/customer/icon/cart.png" alt="" /> <span class="text-primary font-weight-bold" >0</span>
+        </a>
+        <div class="price">$0.00</div>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+        <p>Free shipping, 30-day return or refund guarantee.</p>
+    </div>
+</div>

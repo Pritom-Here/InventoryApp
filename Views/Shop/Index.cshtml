@@ -1,0 +1,19 @@
+﻿@using InventoryApp.Models
+@model IEnumerable<Product>
+
+@{
+    Layout = "~/Views/Shared/_ShoppingAreaLayout.cshtml";
+    ViewData["Title"] = "Shop";
+    var prevPageUrl = ViewBag.ReturnUrl;
+    ViewBag.PageInfo = new { PrevPageUrl = prevPageUrl, CurrentPage = "Shop" };
+}
+
+
+<!-- Breadcrumb Section Begin -->
+<partial name="EcommerceArea/_BreadcrumbSectionPartial"/>
+<!-- Breadcrumb Section End -->
+
+
+<!-- Shop Section Begin -->
+<partial name="EcommerceArea/_ShopPageProductsSectionPartial" model="@Model"/>
+<!-- Shop Section End -->

@@ -1,46 +1,144 @@
-/* _content/InventoryApp/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* _content/InventoryApp/Views/Shared/_AdminDashboardLayout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand[b-4hgdbmy3np] {
+a.navbar-brand[b-6c6bbr09nf] {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
-a[b-4hgdbmy3np] {
+a[b-6c6bbr09nf] {
   color: #0077cc;
 }
 
-.btn-primary[b-4hgdbmy3np] {
+.btn-primary[b-6c6bbr09nf] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active[b-4hgdbmy3np], .nav-pills .show > .nav-link[b-4hgdbmy3np] {
+.nav-pills .nav-link.active[b-6c6bbr09nf], .nav-pills .show > .nav-link[b-6c6bbr09nf] {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
-.border-top[b-4hgdbmy3np] {
+.border-top[b-6c6bbr09nf] {
   border-top: 1px solid #e5e5e5;
 }
-.border-bottom[b-4hgdbmy3np] {
+.border-bottom[b-6c6bbr09nf] {
   border-bottom: 1px solid #e5e5e5;
 }
 
-.box-shadow[b-4hgdbmy3np] {
+.box-shadow[b-6c6bbr09nf] {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-button.accept-policy[b-4hgdbmy3np] {
+button.accept-policy[b-6c6bbr09nf] {
   font-size: 1rem;
   line-height: inherit;
 }
 
-.footer[b-4hgdbmy3np] {
+.footer[b-6c6bbr09nf] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* _content/InventoryApp/Views/Shared/_CustomerDashboardLayout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-zx4pmiux4c] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-zx4pmiux4c] {
+  color: #0077cc;
+}
+
+.btn-primary[b-zx4pmiux4c] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-zx4pmiux4c], .nav-pills .show > .nav-link[b-zx4pmiux4c] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-zx4pmiux4c] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-zx4pmiux4c] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-zx4pmiux4c] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-zx4pmiux4c] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-zx4pmiux4c] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* _content/InventoryApp/Views/Shared/_ShoppingAreaLayout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-e4o8ex8f6i] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-e4o8ex8f6i] {
+  color: #0077cc;
+}
+
+.btn-primary[b-e4o8ex8f6i] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-e4o8ex8f6i], .nav-pills .show > .nav-link[b-e4o8ex8f6i] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-e4o8ex8f6i] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-e4o8ex8f6i] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-e4o8ex8f6i] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-e4o8ex8f6i] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-e4o8ex8f6i] {
   position: absolute;
   bottom: 0;
   width: 100%;

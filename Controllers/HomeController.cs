@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace InventoryApp.Controllers
 {
-    [Authorize(Roles = $"{RolesAndPolicies.Roles.Administrator},{RolesAndPolicies.Roles.Cashier}")]
+    //[Authorize(Roles = $"{RolesAndPolicies.Roles.Administrator},{RolesAndPolicies.Roles.Cashier}")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

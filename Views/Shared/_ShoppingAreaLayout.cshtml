@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EcommerceTemplate_MaleFashion_Bootstrap4_AspNetCore</title>
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/lib/bootstrap-4.6/css/bootstrap.min.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" />
+    
+    <link rel="stylesheet" href="~/lib/elegant_font/HTML CSS/style.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/lib/Magnific-Popup-master/dist/magnific-popup.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/lib/jquery-nice-select-1.1.0/css/nice-select.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/lib/SlickNav-master/dist/slicknav.min.css" type="text/css" />
+
+    <link rel="stylesheet" href="~/css/style.css" type="text/css" />
+
+</head>
+
+<body role="main">
+    
+    <!-- Page Preloder -->
+        <partial name="EcommerceArea/_PagePreloaderPartial" />
+    
+    <!-- Offcanvas Menu Begin -->
+        <partial name="EcommerceArea/_OffCanvasMenuPartial" />
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+        <partial name="EcommerceArea/_HeaderSectionPartial" />
+    <!-- Header Section End -->
+    
+    @RenderBody()
+    
+    <!-- Footer Section Begin -->
+        <partial name="EcommerceArea/_FooterSectionPartial" />
+    <!-- Footer Section End -->
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+    <script src="~/lib/bootstrap-4.6/js/bootstrap.min.js"></script>
+
+    <script src="~/lib/jquery-nice-select-1.1.0/js/jquery.nice-select.min.js"></script>
+
+    <script src="~/js/jquery.nicescroll.min.js"></script>
+
+    <script src="~/lib/Magnific-Popup-master/dist/jquery.magnific-popup.min.js"></script>
+
+    <script src="~/js/jquery.countdown.min.js"></script>
+
+    <script src="~/lib/SlickNav-master/dist/jquery.slicknav.js"></script>
+
+    <script src="~/js/mixitup.min.js"></script>
+
+    <script src="~/lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+
+    <script src="~/js/main.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

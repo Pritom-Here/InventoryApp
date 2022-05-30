@@ -1,0 +1,12 @@
+﻿@using InventoryApp.Models
+@model IEnumerable<Product>
+
+
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <partial name="EcommerceArea/_ProductFilterSectionPartial"/>
+            <partial name="EcommerceArea/_ProductViewSectionPartial" model="@Model" />
+        </div>
+    </div>
+</section>

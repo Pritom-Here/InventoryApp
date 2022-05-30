@@ -54,5 +54,7 @@ namespace InventoryApp.Models
 
         public Brand Brand { get; set; }
 
+
+        public IEnumerable<ProductImage> ProductImages{ get; set; }
     }
 }

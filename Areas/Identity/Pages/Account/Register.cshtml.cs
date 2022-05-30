@@ -22,7 +22,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InventoryApp.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
+    //[Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
