@@ -261,7 +261,6 @@ C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\InventoryApp.RazorAssemblyInfo.cs
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\bundle\InventoryApp.styles.css
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\projectbundle\InventoryApp.bundle.scp.css
 C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\InventoryApp.csproj.CopyComplete
@@ -550,3 +549,6 @@ C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\bin\Debug\net6.0
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_ShoppingAreaLayout.cshtml.rz.scp.css
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_AdminDashboardLayout.cshtml.rz.scp.css
 F:\ASP.NET Projects\Projects\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_CustomerDashboardLayout.cshtml.rz.scp.css
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_AdminDashboardLayout.cshtml.rz.scp.css
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_CustomerDashboardLayout.cshtml.rz.scp.css
+C:\Users\mahta\OneDrive\Desktop\Pritom Chakraborty\InventoryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_ShoppingAreaLayout.cshtml.rz.scp.css

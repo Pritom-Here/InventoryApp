@@ -1,12 +1,20 @@
-﻿@using InventoryApp.Models
-@model IEnumerable<Product>
+﻿@using InventoryApp.Models.ViewModels
+@model ShopViewModel
 
 
 <section class="shop spad">
     <div class="container">
         <div class="row">
-            <partial name="EcommerceArea/_ProductFilterSectionPartial"/>
+            <partial name="EcommerceArea/_ProductFilterSectionPartial" model="@Model"/>
             <partial name="EcommerceArea/_ProductViewSectionPartial" model="@Model" />
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script>
+        
+
+    
+    </script>
+}

@@ -1,11 +1,11 @@
-﻿@using InventoryApp.Models
-@model IEnumerable<Product>
+﻿@using InventoryApp.Models.ViewModels
+@model ShopViewModel
 
 
 
 <div class="row">
 
-@foreach (var product in Model)
+@foreach (var product in Model.Products)
 {
     var productImage = product.ProductImages.First();
 
@@ -26,7 +26,7 @@
                     <i class="fa fa-star-o"></i>
                     <i class="fa fa-star-o"></i>
                 </div>
-                <h5> @product.Price @product.Currency </h5>
+                <h5> @product.Price @product.Currency/@product.Unit </h5>
                 <div class="product__color__select">
                     <label for="pc-4">
                         <input type="radio" id="pc-4">

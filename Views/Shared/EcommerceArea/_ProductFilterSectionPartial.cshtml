@@ -1,4 +1,8 @@
-﻿<div class="col-lg-3">
+﻿@using InventoryApp.Models.ViewModels
+@model ShopViewModel
+
+
+<div class="col-lg-3">
     <div class="shop__sidebar">
         <div class="shop__sidebar__search">
             <form action="#">
@@ -8,65 +12,123 @@
         </div>
         <div class="shop__sidebar__accordion">
             <div class="accordion" id="accordionExample">
-                <div class="card">
+
+                <div class="card" id="primary-categories">
                     <div class="card-heading">
-                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                        <a data-toggle="collapse" data-target="#collapseOne">Main Categories</a>
                     </div>
                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                         <div class="card-body">
                             <div class="shop__sidebar__categories">
-                                <ul class="nice-scroll">
-                                    <li><a href="#">Men (20)</a></li>
-                                    <li><a href="#">Women (20)</a></li>
-                                    <li><a href="#">Bags (20)</a></li>
-                                    <li><a href="#">Clothing (20)</a></li>
-                                    <li><a href="#">Shoes (20)</a></li>
-                                    <li><a href="#">Accessories (20)</a></li>
-                                    <li><a href="#">Kids (20)</a></li>
-                                    <li><a href="#">Kids (20)</a></li>
-                                    <li><a href="#">Kids (20)</a></li>
-                                </ul>
+                                @foreach(var category in Model.PrimaryCategories)
+                                {
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="@category.Id" id="@category.Id">
+                                      <label class="form-check-label" for="@category.Id">
+                                        @category.Name
+                                      </label>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                
+                <div class="card" id="secondary-categories">
                     <div class="card-heading">
-                        <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
+                        <a data-toggle="collapse" data-target="#collapseTwo">Categories</a>
                     </div>
                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                         <div class="card-body">
-                            <div class="shop__sidebar__brand">
-                                <ul>
-                                    <li><a href="#">Louis Vuitton</a></li>
-                                    <li><a href="#">Chanel</a></li>
-                                    <li><a href="#">Hermes</a></li>
-                                    <li><a href="#">Gucci</a></li>
-                                </ul>
+                            <div class="shop__sidebar__categories">
+                                @foreach(var category in Model.SecondaryCategories)
+                                {
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="@category.Id" id="@category.Id">
+                                      <label class="form-check-label" for="@category.Id">
+                                        @category.Name
+                                      </label>
+                                    </div>
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                @if (Model.TertiaryCategories.Count() > 0)
+                {
+                    <div class="card" id="tertiary-categories">
+                        <div class="card-heading">
+                            <a data-toggle="collapse" data-target="#collapseThree">Sub Categories</a>
+                        </div>
+                        <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="shop__sidebar__categories">
+                                    @foreach(var category in Model.TertiaryCategories)
+                                    {
+                                        <div class="form-check">
+                                          <input class="form-check-input" type="checkbox" value="@category.Id" id="@category.Id">
+                                          <label class="form-check-label" for="@category.Id">
+                                            @category.Name
+                                          </label>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                }
+
+
                 <div class="card">
                     <div class="card-heading">
-                        <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                        <a data-toggle="collapse" data-target="#collapseFour">Branding</a>
                     </div>
-                    <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                    <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                         <div class="card-body">
-                            <div class="shop__sidebar__price">
-                                <ul>
-                                    <li><a href="#">$0.00 - $50.00</a></li>
-                                    <li><a href="#">$50.00 - $100.00</a></li>
-                                    <li><a href="#">$100.00 - $150.00</a></li>
-                                    <li><a href="#">$150.00 - $200.00</a></li>
-                                    <li><a href="#">$200.00 - $250.00</a></li>
-                                    <li><a href="#">250.00+</a></li>
-                                </ul>
+                            <div class="shop__sidebar__brand">
+                                @foreach(var brand in Model.Brands)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="@brand.Id" id="@brand.Id">
+                                        <label class="form-check-label" for="@brand.Id">
+                                            @brand.Name
+                                        </label>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="card">
+                    <div class="card-heading">
+                        <a data-toggle="collapse" data-target="#collapseFive">Filter Price (BDT)</a>
+                    </div>
+                    <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="shop__sidebar__price">
+                                @foreach (var price in Model.Prices)
+                                {
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="radio" name="@price.Id" id="@price.Id" value="@price.Id">
+                                      <label class="form-check-label" for="@price.Id">
+                                        @price.MinPrice - @price.MaxPrice
+                                      </label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*<div class="card">
                     <div class="card-heading">
                         <a data-toggle="collapse" data-target="#collapseFour">Size</a>
                     </div>
@@ -156,7 +218,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
