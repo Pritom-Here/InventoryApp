@@ -20,3 +20,25 @@ body {
 .w-15 {
     width: 35px;
 }
+
+.product__item {
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.product__item__pic {
+    height: 240px;
+    position: relative;
+    background-position: center center;
+}
+
+.set-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
+
+.product__item__text {
+    padding-top: 25px;
+    position: relative;
+}

@@ -1,0 +1,105 @@
+﻿@using InventoryApp.Models.ViewModels
+@model POSViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    ViewData["Title"] = "POS";
+}
+
+
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Point Of Sales</h1>    
+</div>
+
+<div class="card card-danger mt-4">
+    <div class="card-header">
+        <h3 class="card-title">Filter Products</h3>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <label asp-for="PrimaryCategoryId">Primary Categories</label>
+                <select asp-for="PrimaryCategoryId" class="form-control" onchange="filterProducts()">
+                    <option value="">Select Category</option>
+
+                    @foreach (var category in Model.PrimaryCategories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-4">
+                <label asp-for="SecondaryCategoryId">Secondary Categories</label>
+                <select asp-for="SecondaryCategoryId" class="form-control" onchange="filterProducts()">
+                    <option>Select Category</option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label asp-for="TertiaryCategoryId">Tertiary Categories</label>
+                <select asp-for="TertiaryCategoryId" class="form-control" onchange="filterProducts()">
+                    <option>Select Category</option>                    
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+<div class="row justify-content-between mt-4">
+
+    @foreach (var product in Model.Products)
+    {
+        var productImage = product.ProductImages.First();
+
+        <div class="col-lg-2 col-md-6 col-sm-6">
+        
+            <div class="product__item">
+                <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='@Url.Content("~/images/products/"+ @productImage.ImageName)'>
+                    <h6 class="bg-success p-2 text-white"> @product.Price @product.Currency/@product.Unit </h6>
+                    
+                </div>
+                <div class="product__item__text">
+                    
+                    <div class="row justify-content-between px-2">
+                        <h6> @product.Name </h6>
+                        <h6> In Stock: @product.InStock @product.Unit </h6>
+                    </div>
+
+                    <a href="#" class="btn btn-sm btn-block btn-outline-danger">+ Add To Cart</a>
+                    
+                </div>
+            </div>
+        </div>
+        
+    }
+
+</div>
+
+
+@section Scripts{
+
+    <script>
+        function filterProducts(){
+            let primaryCategory = $("#PrimaryCategoryId").val();
+            let secondaryCategory = $("#PrimaryCategoryId").val();
+            let tertiaryCategory = $("#PrimaryCategoryId").val();
+
+            let id = tertiaryCategory != "" ? tertiaryCategory 
+                    : (secondaryCategory != "" ? secondaryCategory : primaryCategory);
+
+            console.log(primaryCategory);
+
+            $.ajax({
+                url: "POS/FilterProducts/" + id,
+                success: function(response){
+                    console.log(response);
+                },
+                error: function(error){
+                    console.log(error.text);
+                }
+            });
+        }
+    </script>
+
+}
