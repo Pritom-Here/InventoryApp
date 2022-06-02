@@ -46,7 +46,7 @@
 </div>
 
 
-<div class="row justify-content-between mt-4">
+<div id="product-list" class="row justify-content-between mt-4">
 
     @foreach (var product in Model.Products)
     {
@@ -88,17 +88,53 @@
             let id = tertiaryCategory != "" ? tertiaryCategory 
                     : (secondaryCategory != "" ? secondaryCategory : primaryCategory);
 
-            console.log(primaryCategory);
+            if(id !== ""){
+                $.ajax({
+                    url: "POS/FilterProducts/" + id,
+                    success: function(response){
 
-            $.ajax({
-                url: "POS/FilterProducts/" + id,
-                success: function(response){
-                    console.log(response);
-                },
-                error: function(error){
-                    console.log(error.text);
-                }
-            });
+                        let products = response.data.products;
+                        
+                        $("#product-list").empty();
+
+                        products.forEach(product => {
+
+                            let productImage = product.productImages[0];
+
+                            console.log(productImage.imageName);
+
+                            $("#product-list").append(`
+
+                                <div class="col-lg-2 col-md-6 col-sm-6">
+        
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='/images/products/${productImage.ImageName}'>
+                                            <h6 class="bg-success p-2 text-white"> ${product.price} ${product.currency}/${product.unit} </h6>
+                                        </div>
+                                        <div class="product__item__text">
+                    
+                                            <div class="row justify-content-between px-2">
+                                                <h6> ${product.name} </h6>
+                                                <h6> In Stock: ${product.inStock} ${product.unit} </h6>
+                                            </div>
+
+                                            <a href="#" class="btn btn-sm btn-block btn-outline-danger">+ Add To Cart</a>
+                    
+                                        </div>
+                                    </div>
+                                </div>
+
+                            `);
+                        
+                        });
+
+                    },
+                    error: function(error){
+                        console.log(error.text);
+                    }
+                });
+            }
+
         }
     </script>
 
