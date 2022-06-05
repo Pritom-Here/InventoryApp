@@ -46,5 +46,16 @@ namespace InventoryApp.Controllers
 
             return Json(new { status = 200, data = viewModel });
         }
+        
+
+        [HttpPost]
+        public async Task<IActionResult> SearchProducts(string search)
+        {
+            var productsInDb = await _productRepository.GetAllAsync();
+
+            var products = productsInDb.Where(p => p.Name.ToLower().Contains(search) || p.ProductCode.ToLower().Contains(search)).ToList();
+
+            return Json(new { status = 200, data = products });
+        }
     }
 }

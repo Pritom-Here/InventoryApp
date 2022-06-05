@@ -41,18 +41,29 @@
                 </select>
             </div>
         </div>
+
+        <div class="row px-2 mt-4">
+            <div class="input-group">
+              <input type="text" class="form-control" id="search-products" placeholder="type product name or code" onkeyup="searchProducts()">
+              <div class="input-group-append">
+                <span class="input-group-text" >
+                    <i class="fa fa-search"></i>
+                </span>
+              </div>
+            </div>
+        </div>
     </div>
     <!-- /.card-body -->
 </div>
 
 
-<div id="product-list" class="row justify-content-between mt-4">
+<div id="product-list" class="row mt-4">
 
     @foreach (var product in Model.Products)
     {
         var productImage = product.ProductImages.First();
 
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-2 col-md-6 col-sm-6">
         
             <div class="product__item">
                 <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='@Url.Content("~/images/products/"+ @productImage.ImageName)'>
@@ -124,7 +135,7 @@
 
                             $("#product-list").append(`
 
-                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="col-lg-2 col-md-6 col-sm-6">
         
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg d-flex align-items-start" style="background-image:url(${imageUrl}); background-repeat:no-repeat; background-size:cover; background-position:top-center" >
@@ -154,6 +165,58 @@
                 });
             }
 
+        }
+
+
+        function searchProducts(){
+            let searchValue = $("#search-products").val().toLowerCase();
+
+            if(searchValue.length >= 3){
+
+                $.ajax({
+                    url: "/POS/SearchProducts",
+                    method: "POST",
+                    data: {search: searchValue},
+                    success: function(response){
+                        
+                        $("#product-list").empty();
+
+                        response.data.forEach(product => {
+
+                            let productImage = product.productImages[0];
+
+                            let imageUrl = `/images/products/${productImage.imageName}`;
+
+                            $("#product-list").append(`
+
+                                <div class="col-lg-2 col-md-6 col-sm-6">
+        
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg d-flex align-items-start" style="background-image:url(${imageUrl}); background-repeat:no-repeat; background-size:cover; background-position:top-center" >
+                                            <h6 class="bg-success p-2 text-white"> ${product.price} ${product.currency}/${product.unit} </h6>
+                                        </div>
+                                        <div class="product__item__text">
+                    
+                                            <div class="row justify-content-between px-2">
+                                                <h6> ${product.name} </h6>
+                                                <h6> In Stock: ${product.inStock} ${product.unit} </h6>
+                                            </div>
+
+                                            <a href="#" class="btn btn-sm btn-block btn-outline-danger">+ Add To Cart</a>
+                    
+                                        </div>
+                                    </div>
+                                </div>
+
+                            `);
+                        
+                        });
+                    },
+                    error: function(error){
+                        console.log(error.text);
+                    }
+                })
+            }
         }
     </script>
 
