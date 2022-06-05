@@ -18,9 +18,9 @@
     <div class="card-body">
         <div class="row justify-content-between">
             <div class="col-4">
-                <label asp-for="PrimaryCategoryId">Primary Categories</label>
-                <select asp-for="PrimaryCategoryId" class="form-control" onchange="filterProducts()">
-                    <option value="">Select Category</option>
+                @*<label asp-for="PrimaryCategoryId">Primary Categories</label>*@
+                <select asp-for="PrimaryCategoryId" class="form-control" onchange="filterProducts(1)">
+                    <option value="">Primary Category</option>
 
                     @foreach (var category in Model.PrimaryCategories)
                     {
@@ -29,15 +29,15 @@
                 </select>
             </div>
             <div class="col-4">
-                <label asp-for="SecondaryCategoryId">Secondary Categories</label>
-                <select asp-for="SecondaryCategoryId" class="form-control" onchange="filterProducts()">
-                    <option>Select Category</option>
+                @*<label asp-for="SecondaryCategoryId">Secondary Categories</label>*@
+                <select asp-for="SecondaryCategoryId" class="form-control" onchange="filterProducts(2)">
+                    <option value="">Secondary Category</option>
                 </select>
             </div>
             <div class="col-4">
-                <label asp-for="TertiaryCategoryId">Tertiary Categories</label>
-                <select asp-for="TertiaryCategoryId" class="form-control" onchange="filterProducts()">
-                    <option>Select Category</option>                    
+                @*<label asp-for="TertiaryCategoryId">Tertiary Categories</label>*@
+                <select asp-for="TertiaryCategoryId" class="form-control" onchange="filterProducts(3)">
+                    <option value="">Tertiary Category</option>                    
                 </select>
             </div>
         </div>
@@ -52,7 +52,7 @@
     {
         var productImage = product.ProductImages.First();
 
-        <div class="col-lg-2 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-6 col-sm-6">
         
             <div class="product__item">
                 <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='@Url.Content("~/images/products/"+ @productImage.ImageName)'>
@@ -80,20 +80,39 @@
 @section Scripts{
 
     <script>
-        function filterProducts(){
-            let primaryCategory = $("#PrimaryCategoryId").val();
-            let secondaryCategory = $("#PrimaryCategoryId").val();
-            let tertiaryCategory = $("#PrimaryCategoryId").val();
+        function filterProducts(catLevel){
 
-            let id = tertiaryCategory != "" ? tertiaryCategory 
-                    : (secondaryCategory != "" ? secondaryCategory : primaryCategory);
+            let id = "";
+            
+            if(catLevel === 1) id = $("#PrimaryCategoryId").val();
+            
+            if(catLevel === 2) id = $("#SecondaryCategoryId").val();
+            
+            if(catLevel === 3) id = $("#TertiaryCategoryId").val();
 
+            
             if(id !== ""){
                 $.ajax({
                     url: "POS/FilterProducts/" + id,
                     success: function(response){
 
                         let products = response.data.products;
+                        let secondaryCategories = response.data.secondaryCategories;
+                        let tertiaryCategories = response.data.tertiaryCategories;
+
+                        if (catLevel === 1) {
+                            $("#SecondaryCategoryId").empty().append(`<option value="">Secondary Category</option>`);
+                            $("#TertiaryCategoryId").empty().append(`<option value="">Tertiary Category</option>`);
+                            
+                            secondaryCategories.forEach(cat => $("#SecondaryCategoryId").append(`<option value="${cat.id}">${cat.name}</option>`));
+                        }
+                        
+                        if (catLevel === 2) {
+                            $("#TertiaryCategoryId").empty().append(`<option value="">Tertiary Category</option>`);
+                            
+                            tertiaryCategories.forEach(cat => $("#SecondaryCategoryId").append(`<option value="${cat.id}">${cat.name}</option>`));
+                        }
+                        
                         
                         $("#product-list").empty();
 
@@ -101,14 +120,14 @@
 
                             let productImage = product.productImages[0];
 
-                            console.log(productImage.imageName);
+                            let imageUrl = `/images/products/${productImage.imageName}`;
 
                             $("#product-list").append(`
 
-                                <div class="col-lg-2 col-md-6 col-sm-6">
+                                <div class="col-lg-3 col-md-6 col-sm-6">
         
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='/images/products/${productImage.ImageName}'>
+                                        <div class="product__item__pic set-bg d-flex align-items-start" style="background-image:url(${imageUrl}); background-repeat:no-repeat; background-size:cover; background-position:top-center" >
                                             <h6 class="bg-success p-2 text-white"> ${product.price} ${product.currency}/${product.unit} </h6>
                                         </div>
                                         <div class="product__item__text">
