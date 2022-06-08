@@ -26,6 +26,13 @@ AddAuthorizationPolicies();
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddScoped<IMailer, Mailer>();
 builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
 builder.Services.AddScoped<IRandomCodeGenerator, RandomCodeGenerator>();
@@ -56,6 +63,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

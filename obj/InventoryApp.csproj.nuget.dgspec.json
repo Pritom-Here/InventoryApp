@@ -1,21 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj": {}
+    "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj": {
+    "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj",
+        "projectUniqueName": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj",
         "projectName": "InventoryApp",
-        "projectPath": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj",
-        "packagesPath": "C:\\Users\\mahta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\obj\\",
+        "projectPath": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj",
+        "packagesPath": "C:\\Users\\Prito\\.nuget\\packages\\",
+        "outputPath": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mahta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Prito\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -56,6 +62,10 @@
               "target": "Package",
               "version": "[6.0.4, )"
             },
+            "Microsoft.AspNetCore.Session": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.4, )"
@@ -89,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
