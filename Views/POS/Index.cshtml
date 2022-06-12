@@ -73,7 +73,7 @@
     {
         var productImage = product.ProductImages.First();
 
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-2">
         
             <div class="product__item">
                 <div class="product__item__pic set-bg d-flex align-items-start" data-setbg='@Url.Content("~/images/products/"+ @productImage.ImageName)'>
@@ -176,14 +176,14 @@
             $("#product-count").text(`${count}`);
 
             $.ajax({
-                url: "/POS/AddToCart",
+                url: "/Cart/AddToCart",
                 method: "POST",
                 data: {id : id},
                 success: function(response) {
 
-                    if (!response.isExist) count++;
+                    //if (!response.isExist) count++;
 
-                    $("#product-count").text(`${count}`);
+                    $("#product-count").text(`${response.count}`);
 
                     toastr.success(response.message);
                 },

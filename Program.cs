@@ -35,6 +35,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<IMailer, Mailer>();
 builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
+builder.Services.AddScoped<ICartManager, CartManager>();
 builder.Services.AddScoped<IRandomCodeGenerator, RandomCodeGenerator>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

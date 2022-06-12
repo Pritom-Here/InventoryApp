@@ -1,4 +1,6 @@
 ﻿using InventoryApp.Models;
+using InventoryApp.Repositories.Interfaces;
+using InventoryApp.Services;
 using InventoryApp.Utility;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,26 +8,50 @@ namespace InventoryApp.Controllers
 {
     public class CartController : Controller
     {
+        private readonly ICartManager _cartManager;
+        private readonly IProductRepository _productRepository;
+
+        public CartController(ICartManager cartManager, IProductRepository productRepository)
+        {
+            _cartManager = cartManager;
+            _productRepository = productRepository;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return NotFound();
+
+            var product = await _productRepository.GetAsync(id);
+
+            if (product == null) return NotFound();
+
+            var cartItems = _cartManager.AddToCart(product);
+
+            // If Product is already in the cart then only quantity and item total will be updated
+            // And a member called IsExist will be added to the returned Json response
+            // Based on the IsExist value Cart Item Count will be updated in the dom
+            return Json(new { status = 200, count = cartItems.Count, message = "Successfully Added To Cart" });
+        }
+
         public IActionResult ClearCart()
         {
-            HttpContext.Session.SetString("CartItems", "");
+            var isCleared = _cartManager.ClearCart();
 
-            return Json(new { status = 200 });
+            var status = isCleared ? 200 : 500;
+
+            return Json(new { status });
         }
 
 
         [HttpPost]
         public IActionResult DeleteCartItem(string id)
         {
-            var cartItems = HttpContext.Session.Get<List<Cart>>("CartItems");
+            var isRemoved = _cartManager.RemoveFromCart(id);
 
-            var item = cartItems.Find(c => c.Id == id);
+            var status = isRemoved ? 200 : 500;
 
-            cartItems.Remove(item);
-
-            HttpContext.Session.Set<List<Cart>>("CartItems", cartItems);
-
-            return Json(new { status = 200 });
+            return Json(new { status });
         }
 
 
@@ -34,20 +60,11 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var cartItems = HttpContext.Session.Get<List<Cart>>("CartItems");
+            var isDecreased = _cartManager.DecreaseItemQuantity(id);
 
-            if (cartItems == null) return NotFound();
+            var status = isDecreased ? 200 : 500;
 
-            var product = cartItems.Find(c => c.Id == id);
-
-            if (product == null) return NotFound();
-
-            cartItems.Find(c => c.Id == id).Quantity--;
-            cartItems.Find(c => c.Id == id).ItemTotal-= product.UnitPrice;
-
-            HttpContext.Session.Set<List<Cart>>("CartItems", cartItems);
-
-            return Json(new { status = 200});
+            return Json(new { status });
             
         }
         
@@ -57,20 +74,11 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var cartItems = HttpContext.Session.Get<List<Cart>>("CartItems");
+            var isIncreased = _cartManager.IncreaseItemQuantity(id);
 
-            if (cartItems == null) return NotFound();
+            var status = isIncreased ? 200 : 500;
 
-            var product = cartItems.Find(c => c.Id == id);
-
-            if (product == null) return NotFound();
-
-            cartItems.Find(c => c.Id == id).Quantity++;
-            cartItems.Find(c => c.Id == id).ItemTotal+= product.UnitPrice;
-
-            HttpContext.Session.Set<List<Cart>>("CartItems", cartItems);
-
-            return Json(new { status = 200});
+            return Json(new { status });
             
         }
     }

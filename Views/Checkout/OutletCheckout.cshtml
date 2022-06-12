@@ -133,6 +133,9 @@
                         $("#sub-total").text("0/=");
                         $("#total").text("0/=");
                     }
+                    else{
+                        toastr.error("Something Went Wrong! Please, Try again later.")
+                    }
                 },
                 error: function(error) {
                     toastr.error(error.statusText);
@@ -165,6 +168,9 @@
                         row.hide("slow");
                         $("#sub-total").text(`${subTotal}/=`);
                         $("#total").text(`${total}/=`);
+                    }
+                    else{
+                        toastr.error("Something Went Wrong! Please, Try again later.")
                     }
                 },
                 error: function(error) {
@@ -211,6 +217,8 @@
                             row.children(".item-total").text(`${itemTotal}/=`);
                             $("#sub-total").text(`${subTotal}/=`);
                             $("#total").text(`${total}/=`);
+                        }else{
+                            toastr.error("Something Went Wrong! Please, Try again later.")
                         }
                     },
                     error: function(error) {
@@ -228,47 +236,50 @@
 
         $("#cart-table .increment").on("click", function() {
 
-        let row = $(this).parents("tr");
-        let id = $(this).data("id");
+            let row = $(this).parents("tr");
+            let id = $(this).data("id");
 
-        let count = parseInt( $(this).prev("span").children("span.product-quantity").text() );
-        count++;
-        $(this).prev("span").children("span.product-quantity").text(`${count}`);
+            let count = parseInt( $(this).prev("span").children("span.product-quantity").text() );
+            count++;
+            $(this).prev("span").children("span.product-quantity").text(`${count}`);
 
         
 
-        let unitPrice = row.children(".unit-price").text();
-        unitPrice = unitPrice.substr(0, unitPrice.indexOf("/"));
+            let unitPrice = row.children(".unit-price").text();
+            unitPrice = unitPrice.substr(0, unitPrice.indexOf("/"));
 
-        let itemTotal = row.children(".item-total").text();
-        itemTotal = itemTotal.substr(0, itemTotal.indexOf("/"));
-        itemTotal = parseInt(itemTotal) + parseInt(unitPrice);
+            let itemTotal = row.children(".item-total").text();
+            itemTotal = itemTotal.substr(0, itemTotal.indexOf("/"));
+            itemTotal = parseInt(itemTotal) + parseInt(unitPrice);
 
-        let subTotal = $("#sub-total").text();
-        subTotal = subTotal.substr(0, subTotal.indexOf("/"));
-        subTotal = parseInt(subTotal) + parseInt(unitPrice);
+            let subTotal = $("#sub-total").text();
+            subTotal = subTotal.substr(0, subTotal.indexOf("/"));
+            subTotal = parseInt(subTotal) + parseInt(unitPrice);
 
-        let total = subTotal + subTotal * (15 / 100);
+            let total = subTotal + subTotal * (15 / 100);
 
-        $.ajax({
-            url: "/Cart/IncreaseItemQuantity",
-            method: "POST",
-            data: { id: id },
-            success: function(response) {
+            $.ajax({
+                url: "/Cart/IncreaseItemQuantity",
+                method: "POST",
+                data: { id: id },
+                success: function(response) {
 
-                if (response.status == 200) {
-                    row.children(".item-total").text(`${itemTotal}/=`);
-                    $("#sub-total").text(`${subTotal}/=`);
-                    $("#total").text(`${total}/=`);
+                    if (response.status == 200) {
+                        row.children(".item-total").text(`${itemTotal}/=`);
+                        $("#sub-total").text(`${subTotal}/=`);
+                        $("#total").text(`${total}/=`);
+                    }
+                    else{
+                        toastr.error("Something Went Wrong! Please, Try again later.")
+                    }
+                },
+                error: function(error) {
+                    toastr.error(error.statusText);
                 }
-            },
-            error: function(error) {
-                toastr.error(error.statusText);
-            }
-        });
+            });
         
 
-    })
+        })
 
 
 

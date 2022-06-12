@@ -10257,28 +10257,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Prito\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\mahta\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj",
+      "projectUniqueName": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj",
       "projectName": "InventoryApp",
-      "projectPath": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\InventoryApp.csproj",
-      "packagesPath": "C:\\Users\\Prito\\.nuget\\packages\\",
-      "outputPath": "F:\\ASP.NET Projects\\Projects\\InventoryApp\\obj\\",
+      "projectPath": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\InventoryApp.csproj",
+      "packagesPath": "C:\\Users\\mahta\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mahta\\OneDrive\\Desktop\\Pritom Chakraborty\\InventoryApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Prito\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\mahta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -10356,7 +10348,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
