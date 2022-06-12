@@ -1,0 +1,277 @@
+﻿@using InventoryApp.Models.ViewModels
+@model CheckoutViewModel
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    ViewData["Title"] = "Checkout";
+}
+
+
+<div class="row justify-content-between">
+    <div class="col-8">
+
+        <h4 class="font-weight-bold mb-3">Cart</h4>
+
+        <div class="card shadow-lg p-4">
+            <table id="cart-table" class="table border-bottom text-center">
+                <thead class="bg-black">
+                    <tr class="font-weight-normal">
+                        <th class="font-weight-normal">Name</th>
+                        <th class="font-weight-normal">Count</th>
+                        <th class="font-weight-normal">Price</th>
+                        <th class="font-weight-normal">Item Total</th>
+                        <th class="font-weight-normal">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+
+                    @foreach (var product in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger mr-2 px-1 py-0 decrement" data-id="@product.Id"> 
+                                    <i class="fas fa-minus"></i> 
+                                </button>
+                                <span class="col-2">
+                                    <span class="product-quantity">@product.Quantity</span> @product.Unit
+                                </span>
+                                <button class="btn btn-sm btn-outline-success ml-2 px-1 py-0 increment" data-id="@product.Id"> 
+                                    <i class="fas fa-plus"></i> 
+                                </button>
+                            </td>
+                            <td class="unit-price">@product.UnitPrice/=</td>
+                            <td class="item-total">@product.ItemTotal/=</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger btn-delete" data-id="@product.Id">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+            <div class="row justify-content-between align-items-center mt-3 px-2">
+                <a class="col-5 btn btn-outline-primary" asp-controller="POS" asp-action="Index">
+                    <i class="far fa-arrow-alt-circle-left mr-2"></i>
+                    Back To Product Selection 
+                </a>
+                <button id="clear-cart" class="col-5 btn btn-outline-danger">
+                    <i class="fa fa-trash mr-2"></i>
+                    Remove All Items
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="col-4">
+        <h4 class="text-left text-lg-right font-weight-bold mb-3">Payment Summary</h4>
+        
+        <div class="card shadow-lg p-4">
+            <span class="bg-black text-black text-center py-2">Offline Sale</span>
+
+            @*<p class="mt-3 text-center">Transaction Code: INV-001</p>
+
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="coupon code">
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-primary btn-flat">Apply</button>
+                </span>
+            </div>*@
+
+            <hr class="mt-4"/>
+
+            <div class="row justify-content-between mt-2 px-2">
+                <p class="font-weight-bold">Sub Total:</p>
+                <p id="sub-total" class="">@Model.SubTotal/=</p>
+            </div>
+            
+            <div class="row justify-content-between mt-1 px-2">
+                <p class="font-weight-bold">Vat:</p>
+                <p class="">@Model.Vat%</p>
+            </div>
+            
+            @*<div class="row justify-content-between mt-1 px-2">
+                <p class="font-weight-bold">Discount:</p>
+                <p class="">0%</p>
+            </div>*@
+            
+            <div class="row justify-content-between mt-1 px-2">
+                <p class="font-weight-bold">Total:</p>
+                <p id="total" class="">@Model.Total/=</p>
+            </div>
+
+            <hr class="mt-3"/>
+
+            <div class="form-group mt-2">
+                <input type="text" class="form-control" placeholder="paid amount">                
+                <button type="button" class="btn btn-primary btn-block mt-2">
+                    <i class="far fa-money-bill-alt mr-2"></i>
+                    CHECKOUT
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        $("#clear-cart").on('click', function() {
+
+            $.ajax({
+                url: "/Cart/ClearCart",
+                success: function(response) {
+                    if (response.status == 200) {
+                        $("#cart-table").children('tbody').hide("slow");
+                        $("#sub-total").text("0/=");
+                        $("#total").text("0/=");
+                    }
+                },
+                error: function(error) {
+                    toastr.error(error.statusText);
+                }
+            })
+
+        });
+
+
+        $("#cart-table .btn-delete").on("click", function() {
+
+            let id = $(this).data("id");
+            let row = $(this).parents("tr");
+
+            let itemTotal = row.children(".item-total").text();
+            itemTotal = itemTotal.substr(0, itemTotal.indexOf("/"));
+
+            let subTotal = $("#sub-total").text();
+            subTotal = subTotal.substr(0, subTotal.indexOf("/"));
+            subTotal = subTotal - itemTotal;
+
+            let total = subTotal + subTotal * (15 / 100);
+
+            $.ajax({
+                url: "/Cart/DeleteCartItem",
+                method: "POST",
+                data: { id: id },
+                success: function(response) {
+                    if (response.status == 200) {
+                        row.hide("slow");
+                        $("#sub-total").text(`${subTotal}/=`);
+                        $("#total").text(`${total}/=`);
+                    }
+                },
+                error: function(error) {
+                    toastr.error(error.statusText);
+                }
+            })
+
+        });
+
+
+        $("#cart-table .decrement").on("click", function() {
+
+            let row = $(this).parents("tr");
+            let id = $(this).data("id");
+
+            let count = $(this).next("span").children("span.product-quantity").text();
+        
+
+        
+            if (count > 1) {
+                count--;
+                $(this).next("span").children("span.product-quantity").text(`${count}`);
+
+                let unitPrice = row.children(".unit-price").text();
+                unitPrice = unitPrice.substr(0, unitPrice.indexOf("/"));
+
+                let itemTotal = row.children(".item-total").text();
+                itemTotal = itemTotal.substr(0, itemTotal.indexOf("/"));
+                itemTotal = itemTotal - unitPrice;
+
+                let subTotal = $("#sub-total").text();
+                subTotal = subTotal.substr(0, subTotal.indexOf("/"));
+                subTotal = subTotal - unitPrice;
+
+                let total = subTotal + subTotal * (15 / 100);
+
+                $.ajax({
+                    url: "/Cart/DecreaseItemQuantity",
+                    method: "POST",
+                    data: { id: id },
+                    success: function(response) {
+
+                        if (response.status == 200) {
+                            row.children(".item-total").text(`${itemTotal}/=`);
+                            $("#sub-total").text(`${subTotal}/=`);
+                            $("#total").text(`${total}/=`);
+                        }
+                    },
+                    error: function(error) {
+                        toastr.error(error.statusText);
+                    }
+                });
+
+            } else {
+                toastr.warning("Product count can't be less than 1. Instead you can delete the item from cart.")
+            }
+        
+
+        })
+
+
+        $("#cart-table .increment").on("click", function() {
+
+        let row = $(this).parents("tr");
+        let id = $(this).data("id");
+
+        let count = parseInt( $(this).prev("span").children("span.product-quantity").text() );
+        count++;
+        $(this).prev("span").children("span.product-quantity").text(`${count}`);
+
+        
+
+        let unitPrice = row.children(".unit-price").text();
+        unitPrice = unitPrice.substr(0, unitPrice.indexOf("/"));
+
+        let itemTotal = row.children(".item-total").text();
+        itemTotal = itemTotal.substr(0, itemTotal.indexOf("/"));
+        itemTotal = parseInt(itemTotal) + parseInt(unitPrice);
+
+        let subTotal = $("#sub-total").text();
+        subTotal = subTotal.substr(0, subTotal.indexOf("/"));
+        subTotal = parseInt(subTotal) + parseInt(unitPrice);
+
+        let total = subTotal + subTotal * (15 / 100);
+
+        $.ajax({
+            url: "/Cart/IncreaseItemQuantity",
+            method: "POST",
+            data: { id: id },
+            success: function(response) {
+
+                if (response.status == 200) {
+                    row.children(".item-total").text(`${itemTotal}/=`);
+                    $("#sub-total").text(`${subTotal}/=`);
+                    $("#total").text(`${total}/=`);
+                }
+            },
+            error: function(error) {
+                toastr.error(error.statusText);
+            }
+        });
+        
+
+    })
+
+
+
+    </script>
+
+}

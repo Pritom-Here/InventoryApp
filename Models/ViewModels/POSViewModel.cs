@@ -10,5 +10,7 @@
         public string PrimaryCategoryId { get; set; }
         public string SecondaryCategoryId { get; set; }
         public string TertiaryCategoryId { get; set; }
+
+        public int CartItemsCount { get; set; }
     }
 }
