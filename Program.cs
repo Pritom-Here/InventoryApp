@@ -37,6 +37,7 @@ builder.Services.AddScoped<IMailer, Mailer>();
 builder.Services.AddScoped<ITemplateHelper, TemplateHelper>();
 builder.Services.AddScoped<ICartManager, CartManager>();
 builder.Services.AddScoped<IRandomCodeGenerator, RandomCodeGenerator>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
