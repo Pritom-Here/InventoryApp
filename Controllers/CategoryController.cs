@@ -10,24 +10,25 @@ namespace InventoryApp.Controllers
     [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IAccountRepository _accountRepository;
 
-        public CategoryController(ICategoryRepository categoryRepository, IAccountRepository accountRepository)
+        private readonly IAccountRepository _accountRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CategoryController(IAccountRepository accountRepository, IUnitOfWork unitOfWork)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
             _accountRepository = accountRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
             return View(categoriesInDb);
         }
 
         public async Task<IActionResult> Create()
         {
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
             var primaryCategories = categoriesInDb.Where(c => c.ParentId == null).ToList();
 
             var viewModel = new CategoryFormViewModel
@@ -43,11 +44,11 @@ namespace InventoryApp.Controllers
         {
             if(string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var categoryInDb = await _categoryRepository.GetAsync(id);
+            var categoryInDb = await _unitOfWork.Categories.GetAsync(id);
 
             if(categoryInDb == null) return NotFound();
 
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
 
             var viewModel = new CategoryFormViewModel();
 
@@ -71,7 +72,7 @@ namespace InventoryApp.Controllers
                 
                 if(model.Id != null)
                 {
-                    var categoryInDb = await _categoryRepository.GetAsync(model.Id);
+                    var categoryInDb = await _unitOfWork.Categories.GetAsync(model.Id);
 
                     categoryInDb.Name = model.Name;
                     categoryInDb.ParentId = model.SecondaryCategoryId != null ? model.SecondaryCategoryId : model.PrimaryCategoryId;
@@ -98,15 +99,15 @@ namespace InventoryApp.Controllers
                     category.ModifiedOn = category.CreatedOn;
                     category.ModifiedBy = category.CreatedBy;
 
-                    await _categoryRepository.CreateAsync(category);
+                    await _unitOfWork.Categories.CreateAsync(category);
                 }
 
-                await _categoryRepository.SaveChangesAsync();
+                await _unitOfWork.CompleteAsync();
 
                 return RedirectToAction("Index");
             }
 
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
             var primaryCategories = categoriesInDb.Where(c => c.ParentId == null).ToList();
 
             model.PrimaryCategories = primaryCategories;
@@ -120,13 +121,13 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
 
-            var categoryInDb = await _categoryRepository.GetAsync(id);
+            var categoryInDb = await _unitOfWork.Categories.GetAsync(id);
 
             if(categoryInDb == null) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
 
             categoryInDb.IsDeleted = true;
 
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
             var secondaryCategories = categoriesInDb.Where(c => c.ParentId == categoryInDb.Id).ToList();
 
             if(secondaryCategories.Count > 0)
@@ -147,7 +148,7 @@ namespace InventoryApp.Controllers
                 }
             }
 
-            await _categoryRepository.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
 
             return Json(new { status = 200, isDeleted = true, message = "Successfully deleted!" });
         }
@@ -158,7 +159,7 @@ namespace InventoryApp.Controllers
         {
             if (id != null)
             {
-                var categoriesInDb = await _categoryRepository.GetAllAsync();
+                var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
                 var secondaryCategories = categoriesInDb.Where(c => c.ParentId == id).ToList();
                 
                 return Json(new { data = secondaryCategories });

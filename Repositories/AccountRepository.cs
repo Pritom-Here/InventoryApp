@@ -18,7 +18,7 @@ namespace InventoryApp.Repositories
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
+            _roleManager = roleManager;            
         }
 
         public IEnumerable<ApplicationUser> GetUsers()

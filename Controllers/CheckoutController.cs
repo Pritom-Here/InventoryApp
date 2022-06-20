@@ -10,12 +10,10 @@ namespace InventoryApp.Controllers
 {
     public class CheckoutController : Controller
     {
-        private readonly IProductRepository _productRepository;
         private readonly ICartManager _cartManager;
 
-        public CheckoutController(IProductRepository productRepository, ICartManager cartManager)
+        public CheckoutController(ICartManager cartManager)
         {
-            _productRepository = productRepository;
             _cartManager = cartManager;
         }
 

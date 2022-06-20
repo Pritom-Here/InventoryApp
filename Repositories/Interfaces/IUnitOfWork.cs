@@ -7,6 +7,6 @@
         IProductRepository Products { get; }
         IProductImageRepository ProductImages { get; }
 
-        void CompleteAsync();
+        Task<int> CompleteAsync();
     }
 }

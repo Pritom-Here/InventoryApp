@@ -10,37 +10,28 @@ namespace InventoryApp.Controllers
     [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class ProductController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IProductImageRepository _productImageRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IBrandRepository _brandRepository;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IAccountRepository _accountRepository;
         private readonly IRandomCodeGenerator _randomCodeGenerator;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ProductController(
-            IProductRepository productRepository, 
-            IProductImageRepository productImageRepository,
-            ICategoryRepository categoryRepository, 
-            IBrandRepository brandRepository, 
             IWebHostEnvironment hostingEnvironment,
             IAccountRepository accountRepository,
-            IRandomCodeGenerator randomCodeGenerator
+            IRandomCodeGenerator randomCodeGenerator,
+            IUnitOfWork unitOfWork
         )
         {
-            _productRepository = productRepository;
-            _productImageRepository = productImageRepository;
-            _categoryRepository = categoryRepository;
-            _brandRepository = brandRepository;
             _hostingEnvironment = hostingEnvironment;
             _accountRepository = accountRepository;
             _randomCodeGenerator = randomCodeGenerator;
+            _unitOfWork = unitOfWork;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var productsInDb = await _productRepository.GetAllAsync();
+            var productsInDb = await _unitOfWork.Products.GetAllAsync();
 
             return View(productsInDb);
         }
@@ -59,7 +50,7 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var productInDb = await _productRepository.GetAsync(id);
+            var productInDb = await _unitOfWork.Products.GetAsync(id);
 
             if(productInDb == null) return NotFound();
 
@@ -103,7 +94,7 @@ namespace InventoryApp.Controllers
 
                 await AddAndUploadProductImagesAsync(model.Images, product, user);
 
-                await _productRepository.SaveChangesAsync();
+                await _unitOfWork.CompleteAsync();
 
                 return RedirectToAction("Index");
             }
@@ -113,8 +104,8 @@ namespace InventoryApp.Controllers
 
         private async Task<ProductFormViewModel> PopulateModelAsync(ProductFormViewModel model)
         {
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
-            var brandsInDb = await _brandRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
+            var brandsInDb = await _unitOfWork.Brands.GetAllAsync();
 
             model.PrimaryCategories = categoriesInDb.Where(c => c.CategoryType == Category.Primary).ToList();
             model.SecondaryCategories = model.PrimaryCategoryId == null ? new List<Category>() : categoriesInDb.Where(c => c.ParentId == model.PrimaryCategoryId).ToList();
@@ -150,7 +141,7 @@ namespace InventoryApp.Controllers
 
             if (model.Id != null)
             {
-                product = await _productRepository.GetAsync(model.Id);
+                product = await _unitOfWork.Products.GetAsync(model.Id);
             }
 
             product.Name = model.Name;
@@ -172,7 +163,7 @@ namespace InventoryApp.Controllers
                 product.CreatedBy = user.Id;
                 product.CreatedOn = DateTime.Now;
 
-                await _productRepository.CreateAsync(product);
+                await _unitOfWork.Products.CreateAsync(product);
             }
 
             return product;
@@ -185,7 +176,7 @@ namespace InventoryApp.Controllers
             while (true)
             {
                 productCode = _randomCodeGenerator.GenerateRandomCode();
-                var product = await _productRepository.GetByProductCodeAsync(productCode);
+                var product = await _unitOfWork.Products.GetByProductCodeAsync(productCode);
                 if (product == null) break;
             }
 
@@ -214,7 +205,7 @@ namespace InventoryApp.Controllers
                 };
 
                 //ProductImage Create
-                await _productImageRepository.CreateAsync(productImage);
+                await _unitOfWork.ProductImages.CreateAsync(productImage);
 
             }
         }
@@ -223,7 +214,7 @@ namespace InventoryApp.Controllers
         {
             if (model.Images.Count > 0)
             {
-                var productImagesInDb = await _productImageRepository.GetAllAsync();
+                var productImagesInDb = await _unitOfWork.ProductImages.GetAllAsync();
 
                 var productImages = productImagesInDb.Where(pimg => pimg.ProductId == model.Id).ToList();
 

@@ -20,9 +20,9 @@ namespace InventoryApp.Repositories
             ProductImages = new ProductImageRepository(_dbContext);
         }
 
-        public async void CompleteAsync()
+        public async Task<int> CompleteAsync()
         {
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         public void Dispose()

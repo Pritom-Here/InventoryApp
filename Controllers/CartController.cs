@@ -9,12 +9,12 @@ namespace InventoryApp.Controllers
     public class CartController : Controller
     {
         private readonly ICartManager _cartManager;
-        private readonly IProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CartController(ICartManager cartManager, IProductRepository productRepository)
+        public CartController(ICartManager cartManager, IUnitOfWork unitOfWork)
         {
             _cartManager = cartManager;
-            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -22,7 +22,7 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var product = await _productRepository.GetAsync(id);
+            var product = await _unitOfWork.Products.GetAsync(id);
 
             if (product == null) return NotFound();
 

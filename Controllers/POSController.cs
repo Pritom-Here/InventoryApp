@@ -9,21 +9,19 @@ namespace InventoryApp.Controllers
 {
     public class POSController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ICartManager _cartManager;
 
-        public POSController(IProductRepository productRepository, ICategoryRepository categoryRepository, ICartManager cartManager)
+        public POSController(IUnitOfWork unitOfWork, ICartManager cartManager)
         {
-            _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
             _cartManager = cartManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var productsInDb = await _productRepository.GetAllAsync();
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var productsInDb = await _unitOfWork.Products.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
 
             var cartItems = HttpContext.Session.Get<List<Cart>>("CartItems");
             if (cartItems == null) cartItems = new List<Cart>();
@@ -41,8 +39,8 @@ namespace InventoryApp.Controllers
 
         public async Task<IActionResult> FilterProducts(string id)
         {
-            var productsInDb = await _productRepository.GetAllAsync();
-            var categoriesInDb = await _categoryRepository.GetAllAsync();
+            var productsInDb = await _unitOfWork.Products.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Categories.GetAllAsync();
 
             var viewModel = new POSViewModel
             {
@@ -59,7 +57,7 @@ namespace InventoryApp.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchProducts(string search)
         {
-            var productsInDb = await _productRepository.GetAllAsync();
+            var productsInDb = await _unitOfWork.Products.GetAllAsync();
 
             var products = productsInDb.Where(p => p.Name.ToLower().Contains(search) || p.ProductCode.ToLower().Contains(search)).ToList();
 

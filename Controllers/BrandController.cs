@@ -9,18 +9,18 @@ namespace InventoryApp.Controllers
     [Authorize(Roles = RolesAndPolicies.Roles.Administrator)]
     public class BrandController : Controller
     {
-        private readonly IBrandRepository _brandRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BrandController(IBrandRepository brandRepository, IAccountRepository accountRepository)
+        public BrandController(IAccountRepository accountRepository, IUnitOfWork unitOfWork)
         {
-            _brandRepository = brandRepository;
             _accountRepository = accountRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
         {
-            var categoriesInDb = await _brandRepository.GetAllAsync();
+            var categoriesInDb = await _unitOfWork.Brands.GetAllAsync();
             return View(categoriesInDb);
         }
 
@@ -35,7 +35,7 @@ namespace InventoryApp.Controllers
         {
             if(string.IsNullOrWhiteSpace(id)) return NotFound();
 
-            var brandInDb = await _brandRepository.GetAsync(id);
+            var brandInDb = await _unitOfWork.Brands.GetAsync(id);
 
             if(brandInDb == null) return NotFound();
 
@@ -58,7 +58,7 @@ namespace InventoryApp.Controllers
 
                 if (!string.IsNullOrWhiteSpace(model.Id))
                 {
-                    var brandInDb = await _brandRepository.GetAsync(model.Id);
+                    var brandInDb = await _unitOfWork.Brands.GetAsync(model.Id);
 
                     if(brandInDb == null)
                     {
@@ -80,11 +80,11 @@ namespace InventoryApp.Controllers
                         ModifiedBy = user.Id
                     };
 
-                    await _brandRepository.CreateAsync(brand);
+                    await _unitOfWork.Brands.CreateAsync(brand);
 
                 }
 
-                await _brandRepository.SaveChangesAsync();
+                await _unitOfWork.CompleteAsync();
 
                 return RedirectToAction("Index", "Brand");
             }
@@ -98,13 +98,13 @@ namespace InventoryApp.Controllers
         {
             if (string.IsNullOrWhiteSpace(id)) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
 
-            var brandInDb = await _brandRepository.GetAsync(id);
+            var brandInDb = await _unitOfWork.Brands.GetAsync(id);
 
             if (brandInDb == null) return Json(new { status = 404, isDeleted = false, message = "Item not Found!" });
 
             brandInDb.IsDeleted = true;
 
-            await _brandRepository.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
 
             // NOTE :: Products Delete On Brand Delete Not Implemented
 
