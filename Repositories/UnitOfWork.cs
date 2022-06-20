@@ -10,6 +10,8 @@ namespace InventoryApp.Repositories
         public ICategoryRepository Categories { get; private set; }
         public IProductRepository Products { get; private set; }
         public IProductImageRepository ProductImages { get; private set; }
+        public IOrderRepository Orders { get; private set; }
+        public IOrderDetailRepository OrderDetails { get; private set; }
 
         public UnitOfWork(ApplicationDbContext dbContext)
         {
@@ -18,6 +20,8 @@ namespace InventoryApp.Repositories
             Categories = new CategoryRepository(_dbContext);
             Products = new ProductRepository(_dbContext);
             ProductImages = new ProductImageRepository(_dbContext);
+            Orders = new OrderRepository(_dbContext);
+            OrderDetails = new OrderDetailRepository(_dbContext);
         }
 
         public async Task<int> CompleteAsync()

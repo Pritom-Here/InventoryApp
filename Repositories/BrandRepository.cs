@@ -30,10 +30,5 @@ namespace InventoryApp.Repositories
         {
             await _applicationDbContext.Brands.AddAsync(brand);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _applicationDbContext.SaveChangesAsync();
-        }
     }
 }

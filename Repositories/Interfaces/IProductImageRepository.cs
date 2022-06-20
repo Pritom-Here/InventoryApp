@@ -6,6 +6,5 @@ namespace InventoryApp.Repositories.Interfaces
     {
         Task<IEnumerable<ProductImage>> GetAllAsync();
         Task CreateAsync(ProductImage productImage);
-        Task SaveChangesAsync();
     }
 }

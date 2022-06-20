@@ -6,6 +6,8 @@
         ICategoryRepository Categories { get; }
         IProductRepository Products { get; }
         IProductImageRepository ProductImages { get; }
+        IOrderRepository Orders { get; }
+        IOrderDetailRepository OrderDetails { get; }
 
         Task<int> CompleteAsync();
     }

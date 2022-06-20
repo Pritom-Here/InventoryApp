@@ -32,10 +32,5 @@ namespace InventoryApp.Repositories
         {
             await _applicationDbContext.Categories.AddAsync(category);
         }
-        
-        public async Task SaveChangesAsync()
-        {
-            await _applicationDbContext.SaveChangesAsync();
-        }
     }
 }

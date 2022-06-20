@@ -7,6 +7,5 @@ namespace InventoryApp.Repositories.Interfaces
         Task<IEnumerable<Brand>> GetAllAsync();
         Task<Brand> GetAsync(string id);
         Task CreateAsync(Brand brand);
-        Task SaveChangesAsync();
     }
 }

@@ -9,6 +9,5 @@ namespace InventoryApp.Repositories.Interfaces
         Task<Product> GetAsync(string id);
         Task<Product> GetByProductCodeAsync(string code);
         Task CreateAsync(Product product);
-        Task SaveChangesAsync();
     }
 }

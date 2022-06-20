@@ -23,10 +23,5 @@ namespace InventoryApp.Repositories
         {
             await _applicationDbContext.ProductImages.AddAsync(productImage);
         }
-
-        public async Task SaveChangesAsync()
-        {
-            await _applicationDbContext.SaveChangesAsync();
-        }
     }
 }

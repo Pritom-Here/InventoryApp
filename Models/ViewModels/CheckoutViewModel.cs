@@ -1,4 +1,6 @@
-﻿namespace InventoryApp.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InventoryApp.Models.ViewModels
 {
     public class CheckoutViewModel
     {
@@ -8,5 +10,8 @@
         public double Discount { get; set; }
         public double DeliveryCharge { get; set; }
         public double Total { get; set; }
+
+        [Required]
+        public double PaidAmount { get; set; }
     }
 }

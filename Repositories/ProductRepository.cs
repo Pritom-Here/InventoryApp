@@ -48,11 +48,6 @@ namespace InventoryApp.Repositories
             await _applicationDbContext.Products.AddAsync(product);
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await _applicationDbContext.SaveChangesAsync();
-        }
-
         public async Task<Product> GetByProductCodeAsync(string code)
         {
             return await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.ProductCode == code);

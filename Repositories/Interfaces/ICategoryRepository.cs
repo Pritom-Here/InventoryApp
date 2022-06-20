@@ -7,6 +7,5 @@ namespace InventoryApp.Repositories.Interfaces
         Task<IEnumerable<Category>> GetAllAsync();
         Task<Category> GetAsync(string id);
         Task CreateAsync(Category category);
-        Task SaveChangesAsync();
     }
 }
